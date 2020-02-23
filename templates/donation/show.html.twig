@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donation{% endblock %}
+
+{% block body %}
+    <h1>Donation</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ donation.id }}</td>
+        </tr>
+        <tr>
+            <th>Amount</th>
+            <td>{{ donation.Amount }}</td>
+        </tr>
+        <tr>
+            <th>DateTime</th>
+            <td>{{ donation.DateTime ? donation.DateTime|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('donation_index') }}">back to list</a>
+
+    <a href="{{ path('donation_edit', {'id': donation.id}) }}">edit</a>
+
+    {{ include('donation/_delete_form.html.twig') }}
+{% endblock %}

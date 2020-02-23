@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subscription index{% endblock %}
+
+{% block body %}
+    <h1>Subscription index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for subscription in subscriptions %}
+            <tr>
+                <td>{{ subscription.id }}</td>
+                <td>
+                    <a href="{{ path('subscription_show', {'id': subscription.id}) }}">show</a>
+                    <a href="{{ path('subscription_edit', {'id': subscription.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('subscription_new') }}">Create new</a>
+{% endblock %}
