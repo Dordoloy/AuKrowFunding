@@ -1,0 +1,56 @@
+easy_admin:
+  site_name: 'AuKrowFunding'
+  entities:
+    # List the entity class name you want to manage
+    Categorie:
+      class: App\Entity\Category
+      label: 'Category'
+      list:
+        title: "Most recent Categories added"
+        sort: ['id', 'DESC']
+    Donation:
+      class: App\Entity\Donation
+      label: 'Donation'
+      list:
+        title: "The last donation"
+        sort: ['id', 'DESC']
+    Project:
+      class: App\Entity\Project
+      label: 'Project'
+      list:
+        title: "Newest project"
+        sort: ['id', 'DESC']
+    Status:
+      class: App\Entity\Status
+      label: 'Status'
+      list:
+        title: "All status"
+        sort: ['id', 'DESC']
+    Tag:
+      class: App\Entity\Tag
+      label: 'Tag'
+      list:
+        title: "All tags"
+        sort: ['id', 'DESC']
+    User:
+      class: App\Entity\User
+      label: 'User'
+      list:
+        title: "Latest users registered on web site"
+        sort: ['id', 'DESC']
+  user:
+    display_name: true
+    display_avatar: true
+    # this method/property must return the string representation of the user
+    # (Symfony will look for getFullName(), isFullName(), ..., and 'fullName' property)
+    name_property_path: 'fullName'
+
+    # this method/property must return the absolute URL of the user avatar image
+    # (Symfony will look for getGravatar(), isGravatar(), ..., and 'gravatar' property)
+    avatar_property_path: 'gravatar'
+
+  design:
+    brand_color: '#1ABC9C'
+    assets:
+      favicon: '/assets/backend/favicon.png'
+      # all kinds of assets are supported and linked accordingly

@@ -5,6 +5,13 @@
     "php": "^7.2.5",
     "ext-ctype": "*",
     "ext-iconv": "*",
+    "doctrine/doctrine-fixtures-bundle": "^3.3",
+    "easycorp/easyadmin-bundle": "^2.3",
+    "knpuniversity/oauth2-client-bundle": "^1.33",
+    "league/oauth2-google": "^3.0",
+    "league/oauth2-instagram": "^2.0",
+    "league/oauth2-linkedin": "^5.1",
+    "patrickbussmann/oauth2-apple": "^0.2.1",
     "sensio/framework-extra-bundle": "^5.1",
     "symfony/asset": "5.0.*",
     "symfony/console": "5.0.*",
@@ -77,7 +84,7 @@
   },
   "extra": {
     "symfony": {
-      "allow-contrib": false,
+      "allow-contrib": true,
       "require": "5.0.*"
     }
   }
