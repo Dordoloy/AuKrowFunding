@@ -114,7 +114,6 @@
       <path value="$PROJECT_DIR$/vendor/league/oauth2-linkedin" />
       <path value="$PROJECT_DIR$/vendor/league/oauth2-instagram" />
       <path value="$PROJECT_DIR$/vendor/league/oauth2-google" />
-      <path value="$PROJECT_DIR$/vendor/league/oauth2-facebook" />
       <path value="$PROJECT_DIR$/vendor/league/oauth2-client" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
@@ -131,6 +130,7 @@
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/vendor/symfony/webpack-encore-bundle" />
+      <path value="$PROJECT_DIR$/vendor/league/oauth2-facebook" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

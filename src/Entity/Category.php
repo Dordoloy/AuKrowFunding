@@ -69,7 +69,7 @@ class Category
         return $this->categories;
     }
 
-    public function addCategory(self $category): self
+    public function addSubCategory(self $category): self
     {
         if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
@@ -79,7 +79,7 @@ class Category
         return $this;
     }
 
-    public function removeCategory(self $category): self
+    public function removeSubCategory(self $category): self
     {
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
@@ -128,5 +128,10 @@ class Category
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

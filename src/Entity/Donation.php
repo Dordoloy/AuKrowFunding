@@ -91,4 +91,9 @@ class Donation
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getAmount() . "";
+    }
 }

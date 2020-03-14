@@ -91,6 +91,11 @@ class Project
      */
     private $categories;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Name;
+
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
@@ -358,6 +363,23 @@ class Project
             $this->categories->removeElement($category);
             $category->removeProject($this);
         }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getDescription();
+    }
+
+    public function getName(): ?string
+    {
+        return $this->Name;
+    }
+
+    public function setName(string $Name): self
+    {
+        $this->Name = $Name;
 
         return $this;
     }
