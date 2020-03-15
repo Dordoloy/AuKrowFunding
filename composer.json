@@ -8,6 +8,7 @@
     "doctrine/doctrine-fixtures-bundle": "^3.3",
     "easycorp/easyadmin-bundle": "^2.3",
     "knpuniversity/oauth2-client-bundle": "^1.33",
+    "league/oauth2-facebook": "^2.0",
     "league/oauth2-google": "^3.0",
     "league/oauth2-instagram": "^2.0",
     "league/oauth2-linkedin": "^5.1",
