@@ -12,157 +12,174 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Project
 {
+    //region --------------- Properties
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="float")
      */
-    private $Objectif;
-
+    private $goal;
     /**
      * @ORM\Column(type="date")
      */
-    private $LimitDate;
-
+    private $limitDate;
     /**
      * @ORM\Column(type="integer")
      */
-    private $Report;
-
+    private $report;
     /**
      * @ORM\Column(type="integer")
      */
-    private $Up;
-
+    private $up;
     /**
      * @ORM\Column(type="integer")
      */
     private $down;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Description;
-
+    private $description;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Minature;
-
+    private $miniature;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="Project", orphanRemoval=true)
      */
     private $subscriptions;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Projects")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="Projects")
      */
     private $tags;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Status", inversedBy="Projects")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Statu;
-
+    private $status;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="Project")
      */
     private $donations;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Project", orphanRemoval=true)
      */
     private $comments;
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="Project")
      */
     private $categories;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Name;
+    private $name;
+    //endregion
 
-    public function __construct()
-    {
-        $this->subscriptions = new ArrayCollection();
-        $this->tags = new ArrayCollection();
-        $this->donations = new ArrayCollection();
-        $this->comments = new ArrayCollection();
-        $this->categories = new ArrayCollection();
-    }
-
+    //region --------------- Properties Fonctions
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getObjectif(): ?float
+    /**
+     * @return float|null
+     */
+    public function getGoal(): ?float
     {
-        return $this->Objectif;
+        return $this->goal;
     }
 
-    public function setObjectif(float $Objectif): self
+    /**
+     * @param float $Objectif
+     * @return $this
+     */
+    public function setGoal(float $Objectif): self
     {
-        $this->Objectif = $Objectif;
+        $this->goal = $Objectif;
 
         return $this;
     }
 
+    /**
+     * @return DateTimeInterface|null
+     */
     public function getLimitDate(): ?DateTimeInterface
     {
-        return $this->LimitDate;
+        return $this->limitDate;
     }
 
-    public function setLimitDate(DateTimeInterface $LimitDate): self
+    /**
+     * @param DateTimeInterface $limitDate
+     * @return $this
+     */
+    public function setLimitDate(DateTimeInterface $limitDate): self
     {
-        $this->LimitDate = $LimitDate;
+        $this->limitDate = $limitDate;
 
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getReport(): ?int
     {
-        return $this->Report;
+        return $this->report;
     }
 
-    public function setReport(int $Report): self
+    /**
+     * @param int $report
+     * @return $this
+     */
+    public function setReport(int $report): self
     {
-        $this->Report = $Report;
+        $this->report = $report;
 
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getUp(): ?int
     {
-        return $this->Up;
+        return $this->up;
     }
 
-    public function setUp(int $Up): self
+    /**
+     * @param int $up
+     * @return $this
+     */
+    public function setUp(int $up): self
     {
-        $this->Up = $Up;
+        $this->up = $up;
 
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getDown(): ?int
     {
         return $this->down;
     }
 
+    /**
+     * @param int $down
+     * @return $this
+     */
     public function setDown(int $down): self
     {
         $this->down = $down;
@@ -170,26 +187,21 @@ class Project
         return $this;
     }
 
-    public function getDescription(): ?string
+    /**
+     * @return string|null
+     */
+    public function getMiniature(): ?string
     {
-        return $this->Description;
+        return $this->miniature;
     }
 
-    public function setDescription(?string $Description): self
+    /**
+     * @param string|null $Minature
+     * @return $this
+     */
+    public function setMiniature(?string $Minature): self
     {
-        $this->Description = $Description;
-
-        return $this;
-    }
-
-    public function getMinature(): ?string
-    {
-        return $this->Minature;
-    }
-
-    public function setMinature(?string $Minature): self
-    {
-        $this->Minature = $Minature;
+        $this->miniature = $Minature;
 
         return $this;
     }
@@ -202,6 +214,10 @@ class Project
         return $this->subscriptions;
     }
 
+    /**
+     * @param Subscription $subscription
+     * @return $this
+     */
     public function addSubscription(Subscription $subscription): self
     {
         if (!$this->subscriptions->contains($subscription)) {
@@ -212,6 +228,10 @@ class Project
         return $this;
     }
 
+    /**
+     * @param Subscription $subscription
+     * @return $this
+     */
     public function removeSubscription(Subscription $subscription): self
     {
         if ($this->subscriptions->contains($subscription)) {
@@ -225,11 +245,18 @@ class Project
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -245,6 +272,10 @@ class Project
         return $this->tags;
     }
 
+    /**
+     * @param Tag $tag
+     * @return $this
+     */
     public function addTag(Tag $tag): self
     {
         if (!$this->tags->contains($tag)) {
@@ -255,6 +286,10 @@ class Project
         return $this;
     }
 
+    /**
+     * @param Tag $tag
+     * @return $this
+     */
     public function removeTag(Tag $tag): self
     {
         if ($this->tags->contains($tag)) {
@@ -265,14 +300,21 @@ class Project
         return $this;
     }
 
-    public function getStatu(): ?Status
+    /**
+     * @return Status|null
+     */
+    public function getStatus(): ?Status
     {
-        return $this->Statu;
+        return $this->status;
     }
 
-    public function setStatu(?Status $Statu): self
+    /**
+     * @param Status|null $status
+     * @return $this
+     */
+    public function setStatus(?Status $status): self
     {
-        $this->Statu = $Statu;
+        $this->status = $status;
 
         return $this;
     }
@@ -285,6 +327,10 @@ class Project
         return $this->donations;
     }
 
+    /**
+     * @param Donation $donation
+     * @return $this
+     */
     public function addDonation(Donation $donation): self
     {
         if (!$this->donations->contains($donation)) {
@@ -295,6 +341,10 @@ class Project
         return $this;
     }
 
+    /**
+     * @param Donation $donation
+     * @return $this
+     */
     public function removeDonation(Donation $donation): self
     {
         if ($this->donations->contains($donation)) {
@@ -316,6 +366,10 @@ class Project
         return $this->comments;
     }
 
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -326,6 +380,10 @@ class Project
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -347,6 +405,10 @@ class Project
         return $this->categories;
     }
 
+    /**
+     * @param Category $category
+     * @return $this
+     */
     public function addCategory(Category $category): self
     {
         if (!$this->categories->contains($category)) {
@@ -357,6 +419,10 @@ class Project
         return $this;
     }
 
+    /**
+     * @param Category $category
+     * @return $this
+     */
     public function removeCategory(Category $category): self
     {
         if ($this->categories->contains($category)) {
@@ -367,20 +433,84 @@ class Project
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function __toString()
     {
         return $this->getDescription();
     }
 
-    public function getName(): ?string
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
     {
-        return $this->Name;
+        return $this->description;
     }
 
-    public function setName(string $Name): self
+    /**
+     * @param string|null $description
+     * @return $this
+     */
+    public function setDescription(?string $description): self
     {
-        $this->Name = $Name;
+        $this->description = $description;
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+    //endregion
+
+    //region --------------- Function
+    //region --------------- Constructor
+    /**
+     * Project constructor.
+     */
+    public function __construct()
+    {
+        $this->subscriptions = new ArrayCollection();
+        $this->tags = new ArrayCollection();
+        $this->donations = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+    }
+    //endregion
+
+    /**
+     * Compute the number of Donation
+     * @return int
+     */
+    public function getNumberOfDonation(): int
+    {
+        return $this->getDonations()->count();
+    }
+
+    /**
+     * Compute the number of Subscription
+     * @return int
+     */
+    public function getNumberOfShares(): int
+    {
+        return $this->getSubscriptions()->count();
+    }
+    //endregion
 }

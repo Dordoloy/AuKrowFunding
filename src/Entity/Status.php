@@ -62,7 +62,7 @@ class Status
     {
         if (!$this->Projects->contains($project)) {
             $this->Projects[] = $project;
-            $project->setStatu($this);
+            $project->setStatus($this);
         }
 
         return $this;
@@ -73,8 +73,8 @@ class Status
         if ($this->Projects->contains($project)) {
             $this->Projects->removeElement($project);
             // set the owning side to null (unless already changed)
-            if ($project->getStatu() === $this) {
-                $project->setStatu(null);
+            if ($project->getStatus() === $this) {
+                $project->setStatus(null);
             }
         }
 

@@ -17,6 +17,8 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/", name="user_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -27,6 +29,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -49,17 +53,24 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/show", name="user_show", methods={"GET"})
+     * @param User $user
+     * @return Response
      */
-    public function show(User $user): Response
+    public function show(): Response
     {
+        if ($this->isGranted("ROLE_ADMIN")) {
+            return $this->redirectToRoute("easyadmin");
+        }
         return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
+            'user' => $this->getUser()]);
     }
 
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
     public function edit(Request $request, User $user): Response
     {
@@ -80,6 +91,9 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
     public function delete(Request $request, User $user): Response
     {

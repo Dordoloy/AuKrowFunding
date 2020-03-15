@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,8 @@ class ProjectController extends AbstractController
 {
     /**
      * @Route("/", name="project_index", methods={"GET"})
+     * @param ProjectRepository $projectRepository
+     * @return Response
      */
     public function index(ProjectRepository $projectRepository): Response
     {
@@ -27,6 +30,9 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -50,6 +56,8 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/{id}", name="project_show", methods={"GET"})
+     * @param Project $project
+     * @return Response
      */
     public function show(Project $project): Response
     {
@@ -60,35 +68,55 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @param Request $request
+     * @param Project $project
+     * @return Response
      */
     public function edit(Request $request, Project $project): Response
     {
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->handleRequest($request);
+        if ($this->getUser() === $project->getUser()) {
+            $form = $this->createForm(ProjectType::class, $project);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('project_index');
+                return $this->redirectToRoute('project_index');
+            }
+
+            return $this->render('project/edit.html.twig', [
+                'project' => $project,
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->render('project/show.html.twig', [
+                'project' => $project,
+            ]);
         }
-
-        return $this->render('project/edit.html.twig', [
-            'project' => $project,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
      * @Route("/{id}", name="project_delete", methods={"DELETE"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @param Request $request
+     * @param Project $project
+     * @return Response
      */
     public function delete(Request $request, Project $project): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $project->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($project);
-            $entityManager->flush();
-        }
+        if ($this->getUser() === $project->getUser()) {
+            if ($this->isCsrfTokenValid('delete' . $project->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($project);
+                $entityManager->flush();
+            }
 
-        return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('project_index');
+        } else {
+            return $this->render('project/show.html.twig', [
+                'project' => $project,
+            ]);
+        }
     }
 }
