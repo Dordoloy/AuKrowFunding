@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    //region -------------------- Properties
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -94,7 +95,9 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="User", orphanRemoval=true)
      */
     private $comments;
+    //endregion
 
+    //region -------------------- Function
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
@@ -104,6 +107,9 @@ class User implements UserInterface
         $this->comments = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
@@ -111,7 +117,6 @@ class User implements UserInterface
 
     /**
      * A visual identifier that represents this user.
-     *
      * @see UserInterface
      */
     public function getUsername(): string
@@ -119,6 +124,10 @@ class User implements UserInterface
         return (string)$this->username;
     }
 
+    /**
+     * @param string $username
+     * @return $this
+     */
     public function setUsername(string $username): self
     {
         $this->username = $username;
@@ -138,6 +147,10 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -153,6 +166,10 @@ class User implements UserInterface
         return (string)$this->password;
     }
 
+    /**
+     * @param string $password
+     * @return $this
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -177,11 +194,18 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->Email;
     }
 
+    /**
+     * @param string|null $Email
+     * @return $this
+     */
     public function setEmail(?string $Email): self
     {
         $this->Email = $Email;
@@ -189,11 +213,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getFacebookId(): ?int
     {
         return $this->facebookId;
     }
 
+    /**
+     * @param int|null $facebookId
+     * @return $this
+     */
     public function setFacebookId(?int $facebookId): self
     {
         $this->facebookId = $facebookId;
@@ -201,11 +232,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getGoogleId(): ?int
     {
         return $this->googleId;
     }
 
+    /**
+     * @param int|null $googleId
+     * @return $this
+     */
     public function setGoogleId(?int $googleId): self
     {
         $this->googleId = $googleId;
@@ -213,11 +251,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getAppleId(): ?int
     {
         return $this->appleId;
     }
 
+    /**
+     * @param int|null $appleId
+     * @return $this
+     */
     public function setAppleId(?int $appleId): self
     {
         $this->appleId = $appleId;
@@ -225,11 +270,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getInstagramId(): ?int
     {
         return $this->instagramId;
     }
 
+    /**
+     * @param int|null $instagramId
+     * @return $this
+     */
     public function setInstagramId(?int $instagramId): self
     {
         $this->instagramId = $instagramId;
@@ -237,11 +289,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getLinkedinId(): ?int
     {
         return $this->linkedinId;
     }
 
+    /**
+     * @param int $linkedinId
+     * @return $this
+     */
     public function setLinkedinId(int $linkedinId): self
     {
         $this->linkedinId = $linkedinId;
@@ -257,6 +316,10 @@ class User implements UserInterface
         return $this->subscriptions;
     }
 
+    /**
+     * @param Subscription $subscription
+     * @return $this
+     */
     public function addSubscription(Subscription $subscription): self
     {
         if (!$this->subscriptions->contains($subscription)) {
@@ -267,6 +330,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Subscription $subscription
+     * @return $this
+     */
     public function removeSubscription(Subscription $subscription): self
     {
         if ($this->subscriptions->contains($subscription)) {
@@ -288,6 +355,10 @@ class User implements UserInterface
         return $this->Projects;
     }
 
+    /**
+     * @param Project $project
+     * @return $this
+     */
     public function addProject(Project $project): self
     {
         if (!$this->Projects->contains($project)) {
@@ -298,6 +369,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Project $project
+     * @return $this
+     */
     public function removeProject(Project $project): self
     {
         if ($this->Projects->contains($project)) {
@@ -319,6 +394,10 @@ class User implements UserInterface
         return $this->Donations;
     }
 
+    /**
+     * @param Donation $donation
+     * @return $this
+     */
     public function addDonation(Donation $donation): self
     {
         if (!$this->Donations->contains($donation)) {
@@ -329,6 +408,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Donation $donation
+     * @return $this
+     */
     public function removeDonation(Donation $donation): self
     {
         if ($this->Donations->contains($donation)) {
@@ -350,6 +433,10 @@ class User implements UserInterface
         return $this->Parent;
     }
 
+    /**
+     * @param User $parent
+     * @return $this
+     */
     public function addParent(self $parent): self
     {
         if (!$this->Parent->contains($parent)) {
@@ -360,6 +447,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param User $parent
+     * @return $this
+     */
     public function removeParent(self $parent): self
     {
         if ($this->Parent->contains($parent)) {
@@ -373,11 +464,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return $this|null
+     */
     public function getChild(): ?self
     {
         return $this->Child;
     }
 
+    /**
+     * @param User|null $Child
+     * @return $this
+     */
     public function setChild(?self $Child): self
     {
         $this->Child = $Child;
@@ -393,6 +491,10 @@ class User implements UserInterface
         return $this->comments;
     }
 
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -403,6 +505,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -416,8 +522,25 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getUsername();
     }
+
+    /**
+     * Get all project how the current user participate
+     */
+    public function getFinancedProject()
+    {
+        $projects = [];
+        $donations = $this->getDonations();
+        foreach ($donations as $don) {
+            $projects += $don->getProject();
+        }
+        return array_unique($projects);
+    }
+    //endregion
 }
