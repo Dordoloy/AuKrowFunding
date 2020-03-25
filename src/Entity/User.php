@@ -84,10 +84,10 @@ class User implements UserInterface
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Parent")
      */
-    private $Child;
+    private $Children;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="Child")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="Children")
      */
     private $Parent;
 
@@ -441,7 +441,7 @@ class User implements UserInterface
     {
         if (!$this->Parent->contains($parent)) {
             $this->Parent[] = $parent;
-            $parent->setChild($this);
+            $parent->setChildren($this);
         }
 
         return $this;
@@ -456,8 +456,8 @@ class User implements UserInterface
         if ($this->Parent->contains($parent)) {
             $this->Parent->removeElement($parent);
             // set the owning side to null (unless already changed)
-            if ($parent->getChild() === $this) {
-                $parent->setChild(null);
+            if ($parent->getChildren() === $this) {
+                $parent->setChildren(null);
             }
         }
 
@@ -467,18 +467,18 @@ class User implements UserInterface
     /**
      * @return $this|null
      */
-    public function getChild(): ?self
+    public function getChildren(): ?self
     {
-        return $this->Child;
+        return $this->Children;
     }
 
     /**
-     * @param User|null $Child
+     * @param User|null $Children
      * @return $this
      */
-    public function setChild(?self $Child): self
+    public function setChildren(?self $Children): self
     {
-        $this->Child = $Child;
+        $this->Children = $Children;
 
         return $this;
     }
@@ -527,7 +527,7 @@ class User implements UserInterface
      */
     public function __toString()
     {
-        return $this->getUsername();
+        return $this->getUsername() . '';
     }
 
     /**
@@ -538,7 +538,7 @@ class User implements UserInterface
         $projects = [];
         $donations = $this->getDonations();
         foreach ($donations as $don) {
-            $projects += $don->getProject();
+            $projects += $don->getProjectParent();
         }
         return array_unique($projects);
     }

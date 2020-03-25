@@ -19,11 +19,13 @@ class Donation
 
     /**
      * @ORM\Column(type="float")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $Amount;
 
     /**
      * @ORM\Column(type="datetime")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $DateTime;
 
@@ -37,7 +39,7 @@ class Donation
      * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="donations")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Project;
+    private $ProjectParent;
 
     public function getId(): ?int
     {
@@ -80,14 +82,14 @@ class Donation
         return $this;
     }
 
-    public function getProject(): ?Project
+    public function getProjectParent(): ?Project
     {
-        return $this->Project;
+        return $this->ProjectParent;
     }
 
-    public function setProject(?Project $Project): self
+    public function setProjectParent(?Project $ProjectParent): self
     {
-        $this->Project = $Project;
+        $this->ProjectParent = $ProjectParent;
 
         return $this;
     }
