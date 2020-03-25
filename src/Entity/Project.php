@@ -61,12 +61,12 @@ class Project
      */
     private $tags;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Status", inversedBy="Projects")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Status", inversedBy="ProjectsList")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $status;
+    private $statu;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="Project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="ProjectParent")
      */
     private $donations;
     /**
@@ -81,9 +81,14 @@ class Project
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
     //endregion
 
-    //region --------------- Properties Fonctions
+    //region --------------- Properties
     /**
      * @return int|null
      */
@@ -101,12 +106,12 @@ class Project
     }
 
     /**
-     * @param float $Objectif
+     * @param float $Goal
      * @return $this
      */
-    public function setGoal(float $Objectif): self
+    public function setGoal(float $Goal): self
     {
-        $this->goal = $Objectif;
+        $this->goal = $Goal;
 
         return $this;
     }
@@ -303,18 +308,18 @@ class Project
     /**
      * @return Status|null
      */
-    public function getStatus(): ?Status
+    public function getStatu(): ?Status
     {
-        return $this->status;
+        return $this->statu;
     }
 
     /**
-     * @param Status|null $status
+     * @param Status|null $statu
      * @return $this
      */
-    public function setStatus(?Status $status): self
+    public function setStatu(?Status $statu): self
     {
-        $this->status = $status;
+        $this->statu = $statu;
 
         return $this;
     }
@@ -335,7 +340,7 @@ class Project
     {
         if (!$this->donations->contains($donation)) {
             $this->donations[] = $donation;
-            $donation->setProject($this);
+            $donation->setProjectParent($this);
         }
 
         return $this;
@@ -350,8 +355,8 @@ class Project
         if ($this->donations->contains($donation)) {
             $this->donations->removeElement($donation);
             // set the owning side to null (unless already changed)
-            if ($donation->getProject() === $this) {
-                $donation->setProject(null);
+            if ($donation->getProjectParent() === $this) {
+                $donation->setProjectParent(null);
             }
         }
 
@@ -511,6 +516,18 @@ class Project
     public function getNumberOfShares(): int
     {
         return $this->getSubscriptions()->count();
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
     }
     //endregion
 }
