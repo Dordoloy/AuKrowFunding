@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Subscription{% endblock %}
+{% block title %}{% trans %}Subscription{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Subscription</h1>
+    <h1>{% trans %}Subscription{% endtrans %}</h1>
 
     <table class="table">
         <tbody>
@@ -14,9 +14,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('subscription_index') }}">back to list</a>
-
-    <a href="{{ path('subscription_edit', {'id': subscription.id}) }}">edit</a>
+    <a href="{{ path('subscription_index') }}">{% trans %}back to list{% endtrans %}</a>
 
     {{ include('subscription/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Subscription index{% endblock %}
+{% block title %}{% trans %}Subscription index{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Subscription index</h1>
+    <h1>{% trans %}Subscription index{% endtrans %}</h1>
 
     <table class="table">
         <thead>
         <tr>
             <th>Id</th>
-            <th>actions</th>
+            <th>{% trans %}actions{% endtrans %}</th>
         </tr>
         </thead>
         <tbody>
@@ -17,17 +17,17 @@
             <tr>
                 <td>{{ subscription.id }}</td>
                 <td>
-                    <a href="{{ path('subscription_show', {'id': subscription.id}) }}">show</a>
-                    <a href="{{ path('subscription_edit', {'id': subscription.id}) }}">edit</a>
+                    <a href="{{ path('subscription_show', {'id': subscription.id}) }}">{% trans %}show{% endtrans %}</a>
+                    <a href="{{ path('subscription_edit', {'id': subscription.id}) }}">{% trans %}edit{% endtrans %}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">no records found</td>
+                <td colspan="2">{% trans %}no records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('subscription_new') }}">Create new</a>
+    <a href="{{ path('subscription_new') }}">{% trans %}Create new{% endtrans %}</a>
 {% endblock %}

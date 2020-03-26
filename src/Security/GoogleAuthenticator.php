@@ -42,6 +42,7 @@ class GoogleAuthenticator extends SocialAuthenticator
      * @param ClientRegistry $clientRegistry
      * @param EntityManagerInterface $em
      * @param EntityManagerInterface $userManager
+     * @param RouterInterface $router
      */
     public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, EntityManagerInterface $userManager, RouterInterface $router)
     {

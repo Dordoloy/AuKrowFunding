@@ -1,0 +1,96 @@
+Category: Categorie
+User: Utilisateur
+Donation: Donnation
+Project: Projet
+Status: Statut
+Tag: Tag
+Name: Nom
+Parent: Parent
+Children: Enfants
+'All status': 'Tous les status'
+'All tags': 'Tous les tags'
+'Latest users registered on web site': 'Les dernier utilisateurs enregistrés'
+Username: 'Nom d''utilisateur'
+Email: E-mail
+Child: Enfant
+Categories: Categories
+'Most recent Categories added': 'Catégories ajoutées récement'
+'The last donation': 'Les derniers dons'
+Amount: Montant
+'Date time': 'Date et heure'
+'Newest project': 'Nouveau projets'
+Title: Titre
+Goal: Objectif
+'Limit date': 'Date limite'
+Report: Signalement
+Up: Like
+Down: Dislike
+Password: 'Mot de passe'
+'Facebook id': 'Id Facebook'
+'Google id': 'Id Google'
+'Apple id': 'Id Apple'
+'Instagram id': 'Id Instagram'
+'Linkedin id': 'Id Linkedin'
+Subscriptions: Abonnement
+Projects: Projets
+Donations: Dons
+Comments: Commentaires
+Year: Année
+Month: Mois
+Day: Jour
+Hour: Heure
+Minute: Minute
+'Project parent': 'Projet parent'
+Description: Description
+Miniature: Miniature
+Tags: Tags
+Statu: Status
+'Projects list': 'Liste des projets'
+Owner: Propriétaire
+Explore: Explorer
+'Create a project': 'Créer un projet'
+Connection: Connexion
+Register: 'S''enregistrer'
+'About us': 'A propos'
+Help: Aide
+Contact: Contact
+'Edit Category': 'Modifier la catégorie'
+'back to list': 'retour à la liste'
+'Category index': 'Index des catégories'
+show: afficher
+edit: modifier
+'no records found': 'aucun enregistrement'
+'Create new': 'Créer un nouveau'
+'New Category': 'Nouvelle catégorie'
+'Create new Category': 'Créer une nouvelle Catégorie'
+Delete: Supprimer
+Previous: Précedant
+Next: Suivant
+'Edit Project': 'Modifier le projet'
+'Project index': 'Index de projet'
+'New Project': 'Nouveau Projet'
+'Create new Project': 'Créer un nouveau Projet'
+LimitDate: 'Date limite'
+'Log in!': 'Connexion'
+'You are logged in as': 'Vous êtes connecté en tant que'
+Logout: Déconnexion
+'Please sign in': 'S''il vous plait, veuillez vous connecter'
+'Sign in': 'Connexion'
+'Edit Status': 'Modifier un status'
+'Status index': 'Index des status'
+actions: actions
+'New Status': 'Nouveau status'
+'Create new Status': 'Créer un nouveau status'
+'Edit Subscription': 'Modifier un abonnement'
+'Subscription index': 'Index des abonnements'
+'New Subscription': 'Nouvel abonnement'
+'Create new Subscription': 'Créer un nouvel abonnement'
+Subscription: Abonnement
+'Edit Tag': 'Modifier un tag'
+'Tag index': 'Index des tags'
+'New Tag': 'Nouveau Tag'
+'Create new Tag': 'Créer un nouveau tag'
+'financed projects': 'projets financés'
+'You have not project yet': 'Vous n''avez pas encore de projet'
+'You have subscribe to nothing': 'Vous n''avez pas encore d''abonnement'
+'back to home': 'Accueille'

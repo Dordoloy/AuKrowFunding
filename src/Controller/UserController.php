@@ -54,7 +54,6 @@ class UserController extends AbstractController
 
     /**
      * @Route("/show", name="user_show", methods={"GET"})
-     * @param User $user
      * @return Response
      */
     public function show(): Response
