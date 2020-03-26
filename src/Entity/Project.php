@@ -77,10 +77,6 @@ class Project
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="Project")
      */
     private $categories;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -468,18 +464,18 @@ class Project
     /**
      * @return string|null
      */
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
-     * @param string $name
+     * @param string $title
      * @return $this
      */
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -516,18 +512,6 @@ class Project
     public function getNumberOfShares(): int
     {
         return $this->getSubscriptions()->count();
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
     }
     //endregion
 }

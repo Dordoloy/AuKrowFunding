@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Subscription{% endblock %}
+{% block title %}{% trans %}New Subscription{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Create new Subscription</h1>
+    <h1>{% trans %}Create new Subscription{% endtrans %}</h1>
 
     {{ include('subscription/_form.html.twig') }}
 
-    <a href="{{ path('subscription_index') }}">back to list</a>
+    <a href="{{ path('subscription_index') }}">{% trans %}back to list{% endtrans %}</a>
 {% endblock %}

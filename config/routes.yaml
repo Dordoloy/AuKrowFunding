@@ -1,6 +1,9 @@
 index:
-  path: /
-  controller: App\Controller\DefaultController::index
+  path: /{_locale}/
+  controller: App\Controller\HomeController::index
+  requirements:
+    _locale: en|fr
+
 easy_admin_bundle:
   resource: '@EasyAdminBundle/Controller/EasyAdminController.php'
   prefix: /admin

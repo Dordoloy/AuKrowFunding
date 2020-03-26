@@ -71,6 +71,9 @@ class DonationController extends AbstractController
     /**
      * @Route("/{id}/edit", name="donation_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @param Donation $donation
+     * @return Response
      */
     public function edit(Request $request, Donation $donation): Response
     {
@@ -92,6 +95,9 @@ class DonationController extends AbstractController
     /**
      * @Route("/{id}", name="donation_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @param Donation $donation
+     * @return Response
      */
     public function delete(Request $request, Donation $donation): Response
     {

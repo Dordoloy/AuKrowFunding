@@ -83,6 +83,8 @@ class AppleAuthenticator extends AbstractFormLoginAuthenticator implements Passw
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param $credentials
+     * @return string|null
      */
     public function getPassword($credentials): ?string
     {
@@ -96,6 +98,7 @@ class AppleAuthenticator extends AbstractFormLoginAuthenticator implements Passw
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        /** @noinspection PhpUnhandledExceptionInspection */
         throw new Exception('TODO: provide a valid redirect inside ' . __FILE__);
     }
 

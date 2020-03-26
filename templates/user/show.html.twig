@@ -24,7 +24,7 @@
                             {{ user.Email }}
                         </h6>
                         <h9>
-                            {{ user.getFinancedProject()|length }} financed projects
+                            {{ user.getFinancedProject()|length }} {% trans %}financed projects{% endtrans %}
                         </h9>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                             <div class="tab-pane fade show active" id="home">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>You have not project yet</label>
+                                        <label>{% trans %}You have not project yet{% endtrans %}</label>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                             <div class="tab-pane fade show active" id="home">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>You have subscribe to nothing</label>
+                                        <label>{% trans %}You have subscribe to nothing{% endtrans %}</label>
                                     </div>
                                 </div>
                             </div>
@@ -84,5 +84,5 @@
             </div>
         </form>
     </div>
-    <a href="{{ path('home') }}">back to home</a>
+    <a href="{{ path('home') }}">{% trans %}back to home{% endtrans %}</a>
 {% endblock %}

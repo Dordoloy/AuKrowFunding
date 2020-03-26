@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tag index{% endblock %}
+{% block title %}{% trans %}Tag index{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Tag index</h1>
+    <h1>{% trans %}Tag index{% endtrans %}</h1>
 
     <table class="table">
         <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>actions</th>
+            <th>{% trans %}Name{% endtrans %}</th>
+            <th>{% trans %}actions{% endtrans %}</th>
         </tr>
         </thead>
         <tbody>
@@ -19,17 +19,17 @@
                 <td>{{ tag.id }}</td>
                 <td>{{ tag.Name }}</td>
                 <td>
-                    <a href="{{ path('tag_show', {'id': tag.id}) }}">show</a>
-                    <a href="{{ path('tag_edit', {'id': tag.id}) }}">edit</a>
+                    <a href="{{ path('tag_show', {'id': tag.id}) }}">{% trans %}show{% endtrans %}</a>
+                    <a href="{{ path('tag_edit', {'id': tag.id}) }}">{% trans %}edit{% endtrans %}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">{% trans %}no records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('tag_new') }}">Create new</a>
+    <a href="{{ path('tag_new') }}">{% trans %}Create new{% endtrans %}</a>
 {% endblock %}
