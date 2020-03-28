@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
                     $newSubCategory->setName($subCategory);
                     $manager->persist($newSubCategory);
 
-                    $newCategory->addCategory($newSubCategory);
+                    $newCategory->addSubCategory($newSubCategory);
                 }
             }
         }
