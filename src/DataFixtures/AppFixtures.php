@@ -6,10 +6,12 @@ use App\Entity\Category;
 use App\Entity\Status;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         $allCategories = ["Art"=>[], "Arts and crafts"=>[], "BD"=>[], "Cinema and video"=>[], "Dance"=>[], "Design"=>[],
