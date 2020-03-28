@@ -2,18 +2,47 @@
 
 namespace App\Controller;
 
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use KnpU\OAuth2ClientBundle\Client\Provider\LinkedInClient;
+use League\OAuth2\Client\Provider\LinkedIn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LinkedinController extends AbstractController
 {
     /**
-     * @Route("/linkedin", name="linkedin")
+     * Link to this controller to start the "connect" process
+     *
+     * @Route("/connect/linkedIn", name="connect_linkedIn_start")
+     * @param ClientRegistry $clientRegistry
+     * @return RedirectResponse
      */
-    public function index()
+    public function connectAction(ClientRegistry $clientRegistry)
     {
-        return $this->render('linkedin/index.html.twig', [
-            'controller_name' => 'LinkedinController',
-        ]);
+        return $clientRegistry
+            ->getClient('linkedin') // key used in config/packages/knpu_oauth2_client.yaml
+            ->redirect(['public_profile', 'email'], null);
+    }
+
+    /**
+     * After going to Facebook, you're redirected back here
+     * because this is the "redirect_route" you configured
+     * in config/packages/knpu_oauth2_client.yaml
+     *
+     * @Route("/connect/linkedIn/check", name="connect_linkedIn_check")
+     * @param Request $request
+     * @param ClientRegistry $clientRegistry
+     * @return RedirectResponse
+     */
+    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
+    {
+        /** @var LinkedInClient $client */
+        $client = $clientRegistry->getClient('linkedin');
+
+        /** @var LinkedIn $user */
+        $user = $client->fetchUser();
+        return $this->redirectToRoute('home');
     }
 }

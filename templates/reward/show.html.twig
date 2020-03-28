@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reward{% endblock %}
+
+{% block body %}
+    <h1>Reward</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ reward.id }}</td>
+        </tr>
+        <tr>
+            <th>Level</th>
+            <td>{{ reward.Level }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ reward.Description }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('reward_index') }}">back to list</a>
+
+    <a href="{{ path('reward_edit', {'id': reward.id}) }}">edit</a>
+
+    {{ include('reward/_delete_form.html.twig') }}
+{% endblock %}
