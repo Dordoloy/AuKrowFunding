@@ -21,14 +21,9 @@ class FacebookController extends AbstractController
      */
     public function connectAction(ClientRegistry $clientRegistry)
     {
-        // on Symfony 3.3 or lower, $clientRegistry = $this->get('knpu.oauth2.registry');
-
-        // will redirect to Facebook!
         return $clientRegistry
             ->getClient('facebook_main') // key used in config/packages/knpu_oauth2_client.yaml
-            ->redirect([
-                'public_profile', 'email' // the scopes you want to access
-            ]);
+            ->redirect(['public_profile', 'email'], null);
     }
 
     /**
@@ -39,6 +34,7 @@ class FacebookController extends AbstractController
      * @Route("/connect/facebook/check", name="connect_facebook_check")
      * @param Request $request
      * @param ClientRegistry $clientRegistry
+     * @return RedirectResponse
      */
     public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
     {
@@ -51,10 +47,6 @@ class FacebookController extends AbstractController
 
         /** @var FacebookUser $user */
         $user = $client->fetchUser();
-
-        // do something with all this new power!
-        // e.g. $name = $user->getFirstName();
-        var_dump($user);
-        die;
+        return $this->redirectToRoute('home');
     }
 }

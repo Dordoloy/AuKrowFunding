@@ -82,6 +82,11 @@ class Project
      * @ORM\Column(type="string", length=255)
      */
     private $title;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reward", mappedBy="Project", orphanRemoval=true)
+     */
+    private $rewards;
     //endregion
 
     //region --------------- Properties
@@ -493,6 +498,7 @@ class Project
         $this->donations = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->rewards = new ArrayCollection();
     }
     //endregion
 
@@ -512,6 +518,37 @@ class Project
     public function getNumberOfShares(): int
     {
         return $this->getSubscriptions()->count();
+    }
+
+    /**
+     * @return Collection|Reward[]
+     */
+    public function getRewards(): Collection
+    {
+        return $this->rewards;
+    }
+
+    public function addReward(Reward $reward): self
+    {
+        if (!$this->rewards->contains($reward)) {
+            $this->rewards[] = $reward;
+            $reward->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReward(Reward $reward): self
+    {
+        if ($this->rewards->contains($reward)) {
+            $this->rewards->removeElement($reward);
+            // set the owning side to null (unless already changed)
+            if ($reward->getProject() === $this) {
+                $reward->setProject(null);
+            }
+        }
+
+        return $this;
     }
     //endregion
 }
