@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Subscription;
 use App\Form\SubscriptionType;
 use App\Repository\SubscriptionRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,8 @@ class SubscriptionController extends AbstractController
 {
     /**
      * @Route("/", name="subscription_index", methods={"GET"})
+     * @param SubscriptionRepository $subscriptionRepository
+     * @return Response
      */
     public function index(SubscriptionRepository $subscriptionRepository): Response
     {
@@ -27,6 +30,9 @@ class SubscriptionController extends AbstractController
 
     /**
      * @Route("/new", name="subscription_new", methods={"GET","POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -50,6 +56,8 @@ class SubscriptionController extends AbstractController
 
     /**
      * @Route("/{id}", name="subscription_show", methods={"GET"})
+     * @param Subscription $subscription
+     * @return Response
      */
     public function show(Subscription $subscription): Response
     {
@@ -59,27 +67,11 @@ class SubscriptionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="subscription_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Subscription $subscription): Response
-    {
-        $form = $this->createForm(SubscriptionType::class, $subscription);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('subscription_index');
-        }
-
-        return $this->render('subscription/edit.html.twig', [
-            'subscription' => $subscription,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="subscription_delete", methods={"DELETE"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @param Request $request
+     * @param Subscription $subscription
+     * @return Response
      */
     public function delete(Request $request, Subscription $subscription): Response
     {

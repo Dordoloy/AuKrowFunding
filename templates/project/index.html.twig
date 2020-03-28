@@ -1,35 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project index{% endblock %}
+{% block title %}{% trans %}Project index{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Project index</h1>
+    <h1>{% trans %}Project index{% endtrans %}</h1>
 
     <table class="table">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Objectif</th>
+            <th>Title</th>
+            <th>Goal</th>
             <th>LimitDate</th>
             <th>Report</th>
             <th>Up</th>
             <th>Down</th>
             <th>Description</th>
-            <th>Minature</th>
+            <th>Miniature</th>
             <th>actions</th>
         </tr>
         </thead>
         <tbody>
         {% for project in projects %}
             <tr>
-                <td>{{ project.id }}</td>
-                <td>{{ project.Objectif }}</td>
+                <td>{{ project.Title }}</td>
+                <td>{{ project.Goal }}</td>
                 <td>{{ project.LimitDate ? project.LimitDate|date('Y-m-d') : '' }}</td>
                 <td>{{ project.Report }}</td>
                 <td>{{ project.Up }}</td>
                 <td>{{ project.down }}</td>
                 <td>{{ project.Description }}</td>
-                <td>{{ project.Minature }}</td>
+                <td>{{ project.Miniature }}</td>
                 <td>
                     <a href="{{ path('project_show', {'id': project.id}) }}">show</a>
                     <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
@@ -37,11 +37,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="9">{% trans %}no records found{% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('project_new') }}">Create new</a>
+    <a href="{{ path('project_new') }}">{% trans %}Create new{% endtrans %}</a>
 {% endblock %}

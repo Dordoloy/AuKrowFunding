@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project{% endblock %}
+{% block title %}{% trans %}Project{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Project</h1>
+    <h1>{% trans %}Project{% endtrans %}</h1>
 
     <table class="table">
         <tbody>
@@ -12,39 +12,39 @@
             <td>{{ project.id }}</td>
         </tr>
         <tr>
-            <th>Objectif</th>
-            <td>{{ project.Objectif }}</td>
+            <th>{% trans %}Goal{% endtrans %}</th>
+            <td>{{ project.Goal }}</td>
         </tr>
         <tr>
-            <th>LimitDate</th>
+            <th>{% trans %}LimitDate{% endtrans %}</th>
             <td>{{ project.LimitDate ? project.LimitDate|date('Y-m-d') : '' }}</td>
         </tr>
         <tr>
-            <th>Report</th>
+            <th>{% trans %}Report{% endtrans %}</th>
             <td>{{ project.Report }}</td>
         </tr>
         <tr>
-            <th>Up</th>
+            <th>{% trans %}Up{% endtrans %}</th>
             <td>{{ project.Up }}</td>
         </tr>
         <tr>
-            <th>Down</th>
+            <th>{% trans %}Down{% endtrans %}</th>
             <td>{{ project.down }}</td>
         </tr>
         <tr>
-            <th>Description</th>
+            <th>{% trans %}Description{% endtrans %}</th>
             <td>{{ project.Description }}</td>
         </tr>
         <tr>
-            <th>Minature</th>
-            <td>{{ project.Minature }}</td>
+            <th>{% trans %}Miniature{% endtrans %}</th>
+            <td>{{ project.Miniature }}</td>
         </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('project_index') }}">back to list</a>
+    <a href="{{ path('project_index') }}">{% trans %}back to list{% endtrans %}</a>
 
-    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+    <a href="{{ path('project_edit', {'id': project.id}) }}">{% trans %}edit{% endtrans %}</a>
 
     {{ include('project/_delete_form.html.twig') }}
 {% endblock %}

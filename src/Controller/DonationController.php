@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Donation;
 use App\Form\DonationType;
 use App\Repository\DonationRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,9 @@ class DonationController extends AbstractController
 {
     /**
      * @Route("/", name="donation_index", methods={"GET"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @param DonationRepository $donationRepository
+     * @return Response
      */
     public function index(DonationRepository $donationRepository): Response
     {
@@ -27,6 +31,9 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/new", name="donation_new", methods={"GET","POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -50,6 +57,9 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/{id}", name="donation_show", methods={"GET"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @param Donation $donation
+     * @return Response
      */
     public function show(Donation $donation): Response
     {
@@ -60,6 +70,10 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="donation_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @param Donation $donation
+     * @return Response
      */
     public function edit(Request $request, Donation $donation): Response
     {
@@ -80,6 +94,10 @@ class DonationController extends AbstractController
 
     /**
      * @Route("/{id}", name="donation_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @param Donation $donation
+     * @return Response
      */
     public function delete(Request $request, Donation $donation): Response
     {

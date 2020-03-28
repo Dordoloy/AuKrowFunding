@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}AuKrowdFunding!{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-              crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/c2dbfd9242.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('build/app.css') }}"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
                 integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
                 crossorigin="anonymous"></script>
@@ -38,17 +40,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('project_index') }}">Explore <span
-                                class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ path('project_index') }}">{% trans %}Explore{% endtrans %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('project_new') }}">Create a project</a>
+                    <a class="nav-link" href="{{ path('project_new') }}">{% trans %}Create a project{% endtrans %}</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <form class="form-inline mr-auto">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                        <label>
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                        </label>
                         <button class="btn btn-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </li>
@@ -56,8 +59,8 @@
                     <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdownMenuLink"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ path('app_login') }}">Connexion</a>
-                        <a class="dropdown-item" href="{{ path('register') }}">Register</a>
+                        <a class="dropdown-item" href="{{ path('app_login') }}">{% trans %}Connection{% endtrans %}</a>
+                        <a class="dropdown-item" href="{{ path('register') }}">{% trans %}Register{% endtrans %}</a>
                         <div class="dropdown-divider"></div>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
@@ -65,14 +68,37 @@
                                             class="fab fa-facebook-f"></i></a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="dropdown-item" href="{{ path('register') }}"><i
-                                            class="fab fa-twitter"></i></a>
+                                <a class="dropdown-item" href="{{ path('connect_apple_start') }}"><i
+                                            class="fab fa-apple"></i></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="dropdown-item" href="{{ path('connect_google_start') }}"><i
                                             class="fab fa-google-plus-g"></i></a>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-item" href="{{ path('connect_instagram_start') }}"><i
+                                            class="fab fa-instagram"></i></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-item" href="{{ path('connect_linkedIn_start') }}"><i
+                                            class="fab fa-linkedin"></i></a>
+                            </li>
                         </ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    {% if app.request.locale == 'en' %}
+                        <a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-gb"> </span>
+                            English</a>
+                    {% else %}
+                        <a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-fr"> </span>
+                            Français</a>
+                    {% endif %}
+                    <div class="dropdown-menu" aria-labelledby="dropdown09">
+                        <a class="dropdown-item" href="/en"><span class="flag-icon flag-icon-gb"> </span> English</a>
+                        <a class="dropdown-item" href="/fr"><span class="flag-icon flag-icon-fr"> </span> Français</a>
                     </div>
                 </li>
             </ul>
@@ -93,7 +119,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">About us</a>
+                        <a href="#">{% trans %}About us{% endtrans %}</a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -101,7 +127,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Help</a>
+                        <a href="#">{% trans %}Help{% endtrans %}</a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -109,7 +135,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Contact</a>
+                        <a href="#">{% trans %}Contact{% endtrans %}</a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -179,10 +205,9 @@
 
         </div>
         <!-- Footer Links -->
-
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+            <a href="#"> AuKrowdFunding</a>
         </div>
         <!-- Copyright -->
 

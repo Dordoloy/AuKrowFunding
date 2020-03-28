@@ -1,0 +1,96 @@
+Category: Category
+User: User
+Donation: Donation
+Project: Project
+Status: Status
+Tag: Tag
+Name: Name
+Parent: Parent
+Children: Children
+'All status': 'All status'
+'All tags': 'All tags'
+'Latest users registered on web site': 'Latest users registered on web site'
+Username: Username
+Email: Email
+Child: Child
+Categories: Categories
+'Most recent Categories added': 'Most recent Categories added'
+'The last donation': 'The last donation'
+Amount: Amount
+'Date time': 'Date time'
+'Newest project': 'Newest project'
+Title: Title
+Goal: Goal
+'Limit date': 'Limit date'
+Report: Report
+Up: Up
+Down: Down
+Password: Password
+'Facebook id': 'Facebook id'
+'Google id': 'Google id'
+'Apple id': 'Apple id'
+'Instagram id': 'Instagram id'
+'Linkedin id': 'Linkedin id'
+Subscriptions: Subscriptions
+Projects: Projects
+Donations: Donations
+Comments: Comments
+Year: Year
+Month: Month
+Day: Day
+Hour: Hour
+Minute: Minute
+'Project parent': 'Project parent'
+Description: Description
+Miniature: Miniature
+Tags: Tags
+Statu: Statu
+'Projects list': 'Projects list'
+Owner: Owner
+Explore: Explore
+'Create a project': 'Create a project'
+Connection: Connection
+Register: Register
+'About us': 'About us'
+Help: Help
+Contact: Contact
+'Edit Category': 'Edit Category'
+'back to list': 'back to list'
+'Category index': 'Category index'
+show: show
+edit: edit
+'no records found': 'no records found'
+'Create new': 'Create new'
+'New Category': 'New Category'
+'Create new Category': 'Create new Category'
+Delete: Delete
+Previous: Previous
+Next: Next
+'Edit Project': 'Edit Project'
+'Project index': 'Project index'
+'New Project': 'New Project'
+'Create new Project': 'Create new Project'
+LimitDate: 'Limit Date'
+'Log in!': 'Log in!'
+'You are logged in as': 'You are logged in as'
+Logout: Logout
+'Please sign in': 'Please sign in'
+'Sign in': 'Sign in'
+'Edit Status': 'Edit Status'
+'Status index': 'Status index'
+actions: actions
+'New Status': 'New Status'
+'Create new Status': 'Create new Status'
+'Edit Subscription': 'Edit Subscription'
+'Subscription index': 'Subscription index'
+'New Subscription': 'New Subscription'
+'Create new Subscription': 'Create new Subscription'
+Subscription: Subscription
+'Edit Tag': 'Edit Tag'
+'Tag index': 'Tag index'
+'New Tag': 'New Tag'
+'Create new Tag': 'Create new Tag'
+'financed projects': 'financed projects'
+'You have not project yet': 'You have not project yet'
+'You have subscribe to nothing': 'You have subscribe to nothing'
+'back to home': 'back to home'

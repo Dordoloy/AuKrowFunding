@@ -24,13 +24,13 @@ class Status
     private $Name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="Statu")
+     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="statu")
      */
-    private $Projects;
+    private $ProjectsList;
 
     public function __construct()
     {
-        $this->Projects = new ArrayCollection();
+        $this->ProjectsList = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,15 +53,15 @@ class Status
     /**
      * @return Collection|Project[]
      */
-    public function getProjects(): Collection
+    public function getProjectsList(): Collection
     {
-        return $this->Projects;
+        return $this->ProjectsList;
     }
 
     public function addProject(Project $project): self
     {
-        if (!$this->Projects->contains($project)) {
-            $this->Projects[] = $project;
+        if (!$this->ProjectsList->contains($project)) {
+            $this->ProjectsList[] = $project;
             $project->setStatu($this);
         }
 
@@ -70,8 +70,8 @@ class Status
 
     public function removeProject(Project $project): self
     {
-        if ($this->Projects->contains($project)) {
-            $this->Projects->removeElement($project);
+        if ($this->ProjectsList->contains($project)) {
+            $this->ProjectsList->removeElement($project);
             // set the owning side to null (unless already changed)
             if ($project->getStatu() === $this) {
                 $project->setStatu(null);
@@ -79,5 +79,10 @@ class Status
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }
