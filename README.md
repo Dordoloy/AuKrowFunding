@@ -48,7 +48,8 @@ We use SemVer for versioning. For the versions available, see the tags on this r
 ### Authors
 - **Anthony Chaussin** - Back developpement -AnthonyChaussin
 - **Camille Chaulaic** - -MissKnackii
-- **Yohan Dordoloy** - Front and Graphiste deesigner - Dordoloy
+- **Yohan Dordolo** - Front and Graphiste designer - Dordoloy
+
 See also the list of contributors who participated in this project.
 
 ### License
