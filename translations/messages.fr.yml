@@ -71,11 +71,11 @@ Next: Suivant
 'New Project': 'Nouveau Projet'
 'Create new Project': 'Créer un nouveau Projet'
 LimitDate: 'Date limite'
-'Log in!': 'Connexion'
+'Log in!': Connexion
 'You are logged in as': 'Vous êtes connecté en tant que'
 Logout: Déconnexion
 'Please sign in': 'S''il vous plait, veuillez vous connecter'
-'Sign in': 'Connexion'
+'Sign in': Connexion
 'Edit Status': 'Modifier un status'
 'Status index': 'Index des status'
 actions: actions
@@ -93,4 +93,8 @@ Subscription: Abonnement
 'financed projects': 'projets financés'
 'You have not project yet': 'Vous n''avez pas encore de projet'
 'You have subscribe to nothing': 'Vous n''avez pas encore d''abonnement'
-'back to home': 'Accueille'
+'back to home': Accueille
+Profile: Profile
+'Edit Profile': 'Modifier votre profile'
+'Your projects': 'Vos projets'
+'Followed projects': 'Les projets que vous suivez'

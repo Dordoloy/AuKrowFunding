@@ -17,7 +17,7 @@ class ProjectType extends AbstractType
             ->add('Description')
             ->add('Miniature')
             ->add('tags')
-            ->add('Status')
+            ->add('Statu')
             ->add('categories');
     }
 
