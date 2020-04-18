@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Status;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -13,13 +14,34 @@ class AppFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        $jeu = new Category();
-        $jeu->setName("Jeu");
+        $allCategories = ["Art"=>[], "Arts and crafts"=>[], "BD"=>[], "Cinema and video"=>[], "Dance"=>[], "Design"=>[],
+            "Editing"=>[], "gastronomy"=>[], "Games"=>["Video game","Board game"], "Journalism"=>[], "Mode"=>[],
+            "Music"=>[], "Photography"=>[], "Technology"=>[], "Theater"=>[]];
 
-        $jeuVideo = new Category();
-        $jeuVideo->setName("Jeu vidéo");
+        $allStatus = ["Currently funding", "Funded", "Ended"];
 
-        $jeu->addSubCategory($jeuVideo);
+        foreach ($allCategories as $category => $subCategories) {
+            $newCategory = new Category();
+            $newCategory->setName($category);
+            $manager->persist($newCategory);
+
+            if(isset($subCategories[0])) {
+                foreach ($subCategories as $subCategory) {
+                    $newSubCategory = new Category();
+                    $newSubCategory->setName($subCategory);
+                    $manager->persist($newSubCategory);
+
+                    $newCategory->addSubCategory($newSubCategory);
+                }
+            }
+        }
+
+        foreach ($allStatus as $status) {
+            $newStatus = new Status();
+            $newStatus->setName($status);
+            $manager->persist($newStatus);
+        }
+
 
         $manager->flush();
     }

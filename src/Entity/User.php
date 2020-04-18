@@ -95,6 +95,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="User", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $picture;
     //endregion
 
     //region -------------------- Function
@@ -542,5 +547,19 @@ class User implements UserInterface
         }
         return array_unique($projects);
     }
+
     //endregion
+
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
 }
