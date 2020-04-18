@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Repository\CategoryRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\StatusRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,12 +21,16 @@ class ProjectController extends AbstractController
     /**
      * @Route("/", name="project_index", methods={"GET"})
      * @param ProjectRepository $projectRepository
+     * @param CategoryRepository $categoryRepository
      * @return Response
      */
-    public function index(ProjectRepository $projectRepository): Response
+    public function index(ProjectRepository $projectRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('project/index.html.twig', [
             'projects' => $projectRepository->findAll(),
+            'CloseProjects' => $projectRepository->findClosedToBeFinanced(),
+            'Category' => $categoryRepository->findAll(),
+            'LovedProjects' => $projectRepository->findMostLoved()
         ]);
     }
 
@@ -34,7 +40,7 @@ class ProjectController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, StatusRepository $statusRepository): Response
     {
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
@@ -43,12 +49,12 @@ class ProjectController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $project->setUser($this->getUser());
+            $project->setStatu($statusRepository->findAll()[0]);
             $project->setReport(0);
             $project->setUp(0);
             $project->setDown(0);
             $entityManager->persist($project);
             $entityManager->flush();
-
             return $this->redirectToRoute('project_index');
         }
 
