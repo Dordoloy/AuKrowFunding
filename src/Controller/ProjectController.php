@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\Subscription;
+use App\Entity\User;
 use App\Form\ProjectType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProjectRepository;
@@ -128,5 +130,50 @@ class ProjectController extends AbstractController
                 'project' => $project,
             ]);
         }
+    }
+
+    /**
+     * @Route("/{id}/like", name="project_like", methods={"GET","POST"})
+     * @param Project $project
+     */
+    public function like(Project $project): Response
+    {
+        $project->setUp($project->getUp() + 1);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($project);
+        $entityManager->flush();
+        return $this->render('project/show.html.twig', [
+            'project' => $project,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/dislike", name="project_dislike", methods={"GET","POST"})
+     * @param Project $project
+     */
+    public function dislike(Project $project): Response
+    {
+        $project->setDown($project->getDown() + 1);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($project);
+        $entityManager->flush();
+        return $this->render('project/show.html.twig', [
+            'project' => $project,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/sub", name="project_sub", methods={"GET","POST"})
+     * @param Project $project
+     */
+    public function subscribe(Project $project): Response
+    {
+        $project->addSubscription((new Subscription())->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['username' => $this->getUser()->getUsername()])));
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($project);
+        $entityManager->flush();
+        return $this->render('project/show.html.twig', [
+            'project' => $project,
+        ]);
     }
 }

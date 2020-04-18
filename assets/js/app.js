@@ -8,6 +8,8 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.css';
 import '../css/profile.css';
+import 'bootstrap';
+import 'popper.js'
+import '../js/tools'
 
-
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+require('@fortawesome/fontawesome-free/js/all.js');
