@@ -9,6 +9,7 @@
 import '../css/app.css';
 import '../css/profile.css';
 import '../css/project.css';
+import '../css/form.css';
 
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
