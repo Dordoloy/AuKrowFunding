@@ -1,18 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}{% trans %}User{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Profile</h1>
-
+    <h1>{% trans %}Profile{% endtrans %}</h1>
 
     <div class="container emp-profile">
-        <form method="post">
+        <form method="post" action="{{ path('user_edit') }}">
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
-                             alt=""/>
+
+                        {% if user.picture %}
+                            <img src="{{ user.picture }}"
+                                 alt="User profile picture"/>
+                        {% else %}
+                            <img src="{{ asset('Resources/Logo.svg') }}"
+                                 alt="User default profile picture" width="30%"/>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -29,15 +34,14 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <form action="{{ path('user_edit', {'id': user.id}) }}">
-                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-                    </form>
+                    <input type="submit" class="profile-edit-btn" name="btnAddMore"
+                           value="{% trans %}Edit Profile{% endtrans %}"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
-                        <h3>Your projects</h3>
+                        <h3>{% trans %}Your projects{% endtrans %}</h3>
                         {% if user.getProjects()|length < 1 %}
                             <div class="tab-pane fade show active" id="home">
                                 <div class="row">
@@ -59,7 +63,7 @@
                         {% endif %}
                     </div>
                     <div class="tab-content profile-tab" id="myTabContent">
-                        <h3>Followed projects</h3>
+                        <h3>{% trans %}Followed projects{% endtrans %}</h3>
                         {% if user.getSubscriptions()|length < 1 %}
                             <div class="tab-pane fade show active" id="home">
                                 <div class="row">

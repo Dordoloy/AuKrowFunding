@@ -3,10 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Project;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,13 +17,22 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('Title')
-            ->add('Goal')
-            ->add('LimitDate',DateType::class)
-            ->add('Description', TextareaType::class)
-            ->add('Miniature', FileType::class)
-            ->add('tags')
-            ->add('statu')
-            ->add('categories');
+            ->add('Goal', MoneyType::class, [
+                'required' => true,
+            ])
+            ->add('LimitDate', DateType::class, [
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y') + 10),
+                'months' => range(date('m'), 12),
+                'days' => range(date('d'), 31),
+                'required' => true,
+            ])
+            ->add('Description', CKEditorType::class, [
+                'required' => true,
+            ])
+            ->add('Miniature', TextType::class, [
+                'required' => true
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
