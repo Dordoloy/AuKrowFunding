@@ -19,6 +19,23 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+    public function findMostLoved()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.up', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findClosedToBeFinanced()
+    {
+        $projects = $this->findAll();
+        usort($projects, function (Project $project1, Project $project2) {
+            return $project1->getRest() < $project2->getRest();
+        });
+        return array_slice($projects, 0, 10);
+    }
     // /**
     //  * @return Project[] Returns an array of Project objects
     //  */
