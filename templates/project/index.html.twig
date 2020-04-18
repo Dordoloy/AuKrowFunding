@@ -6,19 +6,19 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <ul class="navbar-nav mr-auto">
             {% for category in Category %}
-                <li class="nav-item">
+                <li class="nav-item navCategories">
                     <a class="nav-link" href="">{{ category.Name }}</a>
                 </li>
             {% endfor %}
         </ul>
     </nav>
 
-    <article>
-        <div class="closedProjects">
-            <h2>Close to be financed</h2>
+    <article class="projectArticle">
+        <h2>Close to be financed</h2>
+        <div class="closedProjects projectContainer">
             {% for project in CloseProjects %}
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}">
+                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}" style="height: 12em">
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
                         <p class="card-text">{{ project.description }}</p>
@@ -27,11 +27,11 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="lovedProjects">
-            <h2>Most loved projects</h2>
+        <h2>Most loved projects</h2>
+        <div class="lovedProjects projectContainer">
             {% for project in LovedProjects %}
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}">
+                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}" style="height: 12em">
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
                         <p class="card-text">{{ project.description }}</p>
