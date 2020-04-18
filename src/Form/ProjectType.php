@@ -21,7 +21,6 @@ class ProjectType extends AbstractType
             ->add('Description', TextareaType::class)
             ->add('Miniature', FileType::class)
             ->add('tags')
-            ->add('Statu')
             ->add('categories');
     }
 

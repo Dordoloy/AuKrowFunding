@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Repository\StatusRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,9 +33,10 @@ class ProjectController extends AbstractController
      * @Route("/new", name="project_new", methods={"GET","POST"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @param Request $request
+     * @param StatusRepository $statusRepository
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, StatusRepository $statusRepository): Response
     {
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
@@ -46,6 +48,7 @@ class ProjectController extends AbstractController
             $project->setReport(0);
             $project->setUp(0);
             $project->setDown(0);
+            $project->setStatu($statusRepository->find(0));
             $entityManager->persist($project);
             $entityManager->flush();
 
