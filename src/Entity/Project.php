@@ -87,7 +87,10 @@ class Project
      * @ORM\OneToMany(targetEntity="App\Entity\Reward", mappedBy="Project", orphanRemoval=true)
      */
     private $rewards;
+
+    private $rest;
     //endregion
+
 
     //region --------------- Properties
     /**
@@ -549,6 +552,15 @@ class Project
         }
 
         return $this;
+    }
+
+    public function getRest(): float
+    {
+        $total = 0;
+        foreach ($this->donations as $don) {
+            $total += $don->getAmount();
+        }
+        return $this->getGoal() - $total;
     }
     //endregion
 }
