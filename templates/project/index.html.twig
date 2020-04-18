@@ -1,47 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% trans %}Project index{% endtrans %}{% endblock %}
+{% block title %}{% trans %}All project to support{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Project index{% endtrans %}</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav mr-auto">
+            {% for category in Category %}
+                <li class="nav-item">
+                    <a class="nav-link" href="">{{ category.Name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Goal</th>
-            <th>LimitDate</th>
-            <th>Report</th>
-            <th>Up</th>
-            <th>Down</th>
-            <th>Description</th>
-            <th>Miniature</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for project in projects %}
-            <tr>
-                <td>{{ project.Title }}</td>
-                <td>{{ project.Goal }}</td>
-                <td>{{ project.LimitDate ? project.LimitDate|date('Y-m-d') : '' }}</td>
-                <td>{{ project.Report }}</td>
-                <td>{{ project.Up }}</td>
-                <td>{{ project.down }}</td>
-                <td>{{ project.Description }}</td>
-                <td>{{ project.Miniature }}</td>
-                <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">{% trans %}no records found{% endtrans %}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <article>
+        <div class="closedProjects">
+            <h2>Close to be financed</h2>
+            {% for project in CloseProjects %}
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="lovedProjects">
+            <h2>Most loved projects</h2>
+            {% for project in LovedProjects %}
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </article>
 
-    <a href="{{ path('project_new') }}">{% trans %}Create new{% endtrans %}</a>
 {% endblock %}
