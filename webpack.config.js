@@ -65,6 +65,7 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
+    .enablePostCssLoader()
 
 // uncomment if you use API Platform Admin (composer req api-admin)
 //.enableReactPreset()

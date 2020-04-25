@@ -48,7 +48,7 @@ class Project
      */
     private $miniature;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="Project", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="Project", orphanRemoval=true,cascade={"persist"})
      */
     private $subscriptions;
     /**
