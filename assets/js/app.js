@@ -8,8 +8,8 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.css';
 import '../css/profile.css';
-import 'bootstrap';
-import 'popper.js'
 import '../js/tools'
+import '../css/project.css';
+import '../css/form.css';
 
 require('@fortawesome/fontawesome-free/js/all.js');

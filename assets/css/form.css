@@ -1,0 +1,11 @@
+form {
+    width: 90%;
+    margin: 20px;
+}
+
+.signinAndRegisterButton {
+    background-color: #3875d7 !important;
+    color: white !important;
+    width: 7em;
+    margin-top: 1em;
+}

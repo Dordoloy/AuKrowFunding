@@ -1,0 +1,49 @@
+/*EXPLORE*/
+.navCategories {
+    border-right: rgba(0,0,0,0.2) 1px solid;
+}
+
+.projectArticle {
+    margin: 20px;
+}
+
+.projectContainer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.card {
+    margin-right: 10px;
+}
+
+
+/*FORM*/
+#saveNewProjectButton {
+    background-color: #3875d7;
+    margin-left: 20px;
+    color: white;
+}
+
+#editProject {
+    background-color: #3875d7;
+    color: white;
+    margin-left: 20px;
+}
+
+.backToList {
+    background-color: #3875d7 !important;
+    color: white !important;
+    width: 7em;
+    margin-top: -6.6em;
+    margin-left: 7em;
+}
+
+.deleteButton {
+    background-color: red !important;
+    color: white !important;
+    width: 7em;
+    margin-top: -12.1em;
+    margin-left: 14.5em;
+}
+
