@@ -55,7 +55,7 @@
                                 <div class="tab-pane fade show active" id="home">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <a href="{{ path('project_show', {'id': project.id}) }}" class="">{{ project }}</a>
+                                            <a href="{{ path('project_show', {'id': project.id}) }}" class="">{{ project.title }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                                 <div class="tab-pane fade show active" id="home">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <a href="{{ path('project_show', {'id': subscription.Project.id}) }}" class="">{{ subscription.Project }}</a>
+                                            <a href="{{ path('project_show', {'id': subscription.Project.id}) }}" class="">{{ subscription.Project.title }}</a>
                                         </div>
                                     </div>
                                 </div>
