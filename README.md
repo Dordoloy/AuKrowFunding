@@ -19,7 +19,7 @@ No software to install is require. However, we recommand you to have the lastest
 
 This project have been coded with PhpStorm, we recommand it!
 
-###Translation
+### Translation
 
 Our web site is translated in french and in english at the moment, but we propose you to complete the translation files et to submit them to us in order to make it available in your language.
 
