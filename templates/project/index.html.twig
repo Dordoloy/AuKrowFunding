@@ -22,22 +22,19 @@
                     <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}" style="height: 12em">
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">{{ project.description }}</p>
-                        <div class="d-inline-flex">
-                            <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read
-                                More</a>
-                            <div class="d-inline-flex"><i data-id="{{ project.id }}" data-up="1"
-                                data-url="{{ path('project_like', {'id': project.id}) }}"
-                                class="up fas fa-thumbs-up"></i>
-                                <p class="upNB">{{ project.up }}</p></div>
-                            <div class="d-inline-flex"><i data-id="{{ project.id }}" data-up="0"
-                                data-url="{{ path('project_dislike', {'id': project.id}) }}"
-                                class="down fas fa-thumbs-down"></i>
-                                <p class="downNB">{{ project.down }}</p></div>
-                            <i data-up="2" class="sub fas fa-bookmark"
-                            data-url="{{ path('project_sub', {'id': project.id}) }}"></i>
-                        </div>
-{#                        TODO - Condition a faire pour changer image en fonction de la cagnotte (quand on l'aura)#}
+                        <p class="card-text">0 / {{ project.goal }}€</p>
+                        <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read More</a>
+                        <div class="d-inline-flex"><i data-id="{{ project.id }}" data-up="1"
+                                                      data-url="{{ path('project_like', {'id': project.id}) }}"
+                                                      class="up fas fa-thumbs-up"></i>
+                            <p class="upNB">{{ project.up }}</p></div>
+                        <div class="d-inline-flex"><i data-id="{{ project.id }}" data-up="0"
+                                                      data-url="{{ path('project_dislike', {'id': project.id}) }}"
+                                                      class="down fas fa-thumbs-down"></i>
+                            <p class="downNB">{{ project.down }}</p></div>
+                        <i data-up="2" class="sub fas fa-bookmark"
+                           data-url="{{ path('project_sub', {'id': project.id}) }}"></i>
+                        {#                  TODO - Condition a faire pour changer image en fonction de la cagnotte (quand on l'aura)#}
                         <img src="{{ asset('Resources/bebe_pingouin.svg') }}" alt="pingouin" style="width: 50px">
                     </div>
                 </div>
@@ -50,7 +47,7 @@
                     <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}" style="height: 12em">
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">{{ project.description }}</p>
+                        <p class="card-text">0 / {{ project.goal }}€</p>
                         <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read More</a>
                         <div class="d-inline-flex"><i data-id="{{ project.id }}" data-up="1"
                                                       data-url="{{ path('project_like', {'id': project.id}) }}"
