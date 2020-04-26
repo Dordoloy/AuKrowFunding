@@ -1,6 +1,16 @@
 /*EXPLORE*/
 .navCategories {
-    border-right: rgba(0,0,0,0.2) 1px solid;
+    color: white;
+    border-bottom: rgba(0,0,0,0) 3px solid;
+    transition: all ease 0.5s;
+}
+
+.navCategories:hover {
+    border-bottom: rgba(0,123,255,1) 3px solid;
+}
+
+.nav-link {
+    color: white;
 }
 
 .projectArticle {
