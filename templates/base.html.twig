@@ -11,12 +11,19 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
 
+
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
 <body>
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
 {% endblock %}
 <header>
     <nav class="navbar navbar-expand-md navbar-light bg-faded">
@@ -80,7 +87,8 @@
                 </li>
                 <li class="nav-item dropdown">
                     {% if app.request.locale == 'en' %}
-                        <a class="nav-link dropdown-toggle" href="" id="dropdown09" data-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="dropdown09"
+                           data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-gb"> </span>
                             English</a>
                     {% else %}

@@ -11,5 +11,3 @@ import '../css/profile.css';
 import '../js/tools'
 import '../css/project.css';
 import '../css/form.css';
-
-require('@fortawesome/fontawesome-free/js/all.js');
