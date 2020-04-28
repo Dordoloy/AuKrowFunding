@@ -21,60 +21,20 @@
                     <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
                         <div class="d-inline-flex">
-                            {% if is_granted('ROLE_USER') %}
-                                <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read
-                                    More</a>
-                                <div class="d-inline-flex">
-                                    {% if app.user.isProjectLiked(project) %}
-                                        <i data-id="{{ project.id }}" data-up="1"
-                                           data-url="{{ path('project_unlike', {'id': project.id}) }}"
-                                           class="unup fas fa-thumbs-up  text-primary"></i>
-                                    {% else %}
-                                        <i data-id="{{ project.id }}" data-up="1"
-                                           data-url="{{ path('project_like', {'id': project.id}) }}"
-                                           class="up fas fa-thumbs-up"></i>
-                                    {% endif %}
-                                    <p class="upNB">{{ project.up }}</p>
-                                </div>
-
-                                <div class="d-inline-flex">
-                                    {% if app.user.isProjectDisliked(project) %}
-                                        <i data-id="{{ project.id }}" data-up="0"
-                                           data-url="{{ path('project_undislike', {'id': project.id}) }}"
-                                           class="undown fas fa-thumbs-down text-danger"></i>
-                                    {% else %}
-                                        <i data-id="{{ project.id }}" data-up="0"
-                                           data-url="{{ path('project_dislike', {'id': project.id}) }}"
-                                           class="down fas fa-thumbs-down"></i>
-                                    {% endif %}
-
-                                    <p class="downNB">{{ project.down }}</p>
-                                </div>
-                                {% if app.user.isProjectSubscribe(project) %}
-                                    <i data-up="2" class="unsub fas fa-bookmark text-info"
-                                       data-url="{{ path('project_unsub', {'id': project.id}) }}"></i>
-                                {% else %}
-                                    <i data-up="2" class="sub fas fa-bookmark"
-                                       data-url="{{ path('project_sub', {'id': project.id}) }}"></i>
-                                {% endif %}
-                            {% else %}
-                                <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read
-                                    More</a>
-                                <div class="d-inline-flex">
-                                    <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
-                                                class="fas fa-thumbs-up"
-                                                onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"></i></a>
-                                    <p>{{ project.likep.count }}</p>
-                                </div>
-                                <div class="d-inline-flex">
-                                    <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
-                                                class="fas fa-thumbs-down"></i></a>
-                                    <p onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')">{{ project.down }}</p>
-                                </div>
-                                <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
-                                            class="fas fa-bookmark"></i></a>
-                            {% endif %}
+                            <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read
+                                More</a>
+                            <div class="d-inline-flex"><i data-id="{{ project.id }}" data-up="1"
+                                                          data-url="{{ path('project_like', {'id': project.id}) }}"
+                                                          class="up fas fa-thumbs-up"></i>
+                                <p class="upNB">{{ project.up }}</p></div>
+                            <div class="d-inline-flex"><i data-id="{{ project.id }}" data-up="0"
+                                                          data-url="{{ path('project_dislike', {'id': project.id}) }}"
+                                                          class="down fas fa-thumbs-down"></i>
+                                <p class="downNB">{{ project.down }}</p></div>
+                            <i data-up="2" class="sub fas fa-bookmark"
+                               data-url="{{ path('project_sub', {'id': project.id}) }}"></i>
                         </div>
                     </div>
                 </div>
@@ -144,7 +104,7 @@
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
         </div>
     </article>
 
