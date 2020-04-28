@@ -39,8 +39,6 @@ easy_admin:
           - { property: 'goal', type: 'money', type_option: { required: true} }
           - { property: 'limitDate', type: 'datetime', type_option: { required: true} }
           - { property: 'report', type: 'number', type_option: { required: true} }
-          - { property: 'up', type: 'number', type_option: { required: true} }
-          - { property: 'down', type: 'number', type_option: { required: true} }
           - { property: 'description', type: 'text_editor', type_option: { required: true} }
           - { property: 'miniature', type: 'text' }
           - { property: 'title', type: 'text', type_option: { required: true} }

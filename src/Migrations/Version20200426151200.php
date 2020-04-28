@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200416144904 extends AbstractMigration
+final class Version20200426151200 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -39,9 +39,6 @@ final class Version20200416144904 extends AbstractMigration
         $this->addSql('CREATE TABLE reward (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, project_id INTEGER NOT NULL, level DOUBLE PRECISION NOT NULL, description VARCHAR(1500) NOT NULL)');
         $this->addSql('CREATE INDEX IDX_4ED17253166D1F9C ON reward (project_id)');
         $this->addSql('CREATE TABLE status (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL)');
-        $this->addSql('CREATE TABLE subscription (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, project_id INTEGER NOT NULL)');
-        $this->addSql('CREATE INDEX IDX_A3C664D3A76ED395 ON subscription (user_id)');
-        $this->addSql('CREATE INDEX IDX_A3C664D3166D1F9C ON subscription (project_id)');
         $this->addSql('CREATE TABLE tag (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL)');
         $this->addSql('CREATE TABLE tag_project (tag_id INTEGER NOT NULL, project_id INTEGER NOT NULL, PRIMARY KEY(tag_id, project_id))');
         $this->addSql('CREATE INDEX IDX_1D82FD44BAD26311 ON tag_project (tag_id)');
@@ -50,6 +47,15 @@ final class Version20200416144904 extends AbstractMigration
         , password VARCHAR(255) NOT NULL, email VARCHAR(255) DEFAULT NULL, facebook_id INTEGER DEFAULT NULL, google_id INTEGER DEFAULT NULL, apple_id INTEGER DEFAULT NULL, instagram_id INTEGER DEFAULT NULL, linkedin_id INTEGER DEFAULT NULL, picture VARCHAR(1000) DEFAULT NULL)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649F85E0677 ON user (username)');
         $this->addSql('CREATE INDEX IDX_8D93D6493D3D2749 ON user (children_id)');
+        $this->addSql('CREATE TABLE user_project_dislike (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, project_id INTEGER NOT NULL)');
+        $this->addSql('CREATE INDEX IDX_7AF98C40A76ED395 ON user_project_dislike (user_id)');
+        $this->addSql('CREATE INDEX IDX_7AF98C40166D1F9C ON user_project_dislike (project_id)');
+        $this->addSql('CREATE TABLE user_project_like (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, projectliked_id INTEGER NOT NULL)');
+        $this->addSql('CREATE INDEX IDX_153EF4A9A76ED395 ON user_project_like (user_id)');
+        $this->addSql('CREATE INDEX IDX_153EF4A9BBF561 ON user_project_like (projectliked_id)');
+        $this->addSql('CREATE TABLE user_project_subscription (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, project_id INTEGER NOT NULL)');
+        $this->addSql('CREATE INDEX IDX_374053CFA76ED395 ON user_project_subscription (user_id)');
+        $this->addSql('CREATE INDEX IDX_374053CF166D1F9C ON user_project_subscription (project_id)');
     }
 
     public function down(Schema $schema): void
@@ -64,9 +70,11 @@ final class Version20200416144904 extends AbstractMigration
         $this->addSql('DROP TABLE project');
         $this->addSql('DROP TABLE reward');
         $this->addSql('DROP TABLE status');
-        $this->addSql('DROP TABLE subscription');
         $this->addSql('DROP TABLE tag');
         $this->addSql('DROP TABLE tag_project');
         $this->addSql('DROP TABLE user');
+        $this->addSql('DROP TABLE user_project_dislike');
+        $this->addSql('DROP TABLE user_project_like');
+        $this->addSql('DROP TABLE user_project_subscription');
     }
 }
