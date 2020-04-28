@@ -55,7 +55,7 @@
                                 <div class="tab-pane fade show active" id="home">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>{{ project }}</label>
+                                            <a href="{{ path('project_show', {'id': project.id}) }}" class="">{{ project.title }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="tab-content profile-tab" id="myTabContent">
                         <h3>{% trans %}Followed projects{% endtrans %}</h3>
-                        {% if user.getSubscriptions()|length < 1 %}
+                        {% if user.getProjectSubscribed()|length < 1 %}
                             <div class="tab-pane fade show active" id="home">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -73,11 +73,11 @@
                                 </div>
                             </div>
                         {% else %}
-                            {% for subscription in user.getSubscriptions() %}
+                            {% for subscription in user.getProjectSubscribed() %}
                                 <div class="tab-pane fade show active" id="home">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>{{ subscription.Project }}</label>
+                                            <a href="{{ path('project_show', {'id': subscription.Project.id}) }}" class="">{{ subscription.Project.title }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -88,5 +88,5 @@
             </div>
         </form>
     </div>
-    <a href="{{ path('home') }}">{% trans %}back to home{% endtrans %}</a>
+    <a href="{{ path('home') }}" class="btn backToList">{% trans %}back to home{% endtrans %}</a>
 {% endblock %}

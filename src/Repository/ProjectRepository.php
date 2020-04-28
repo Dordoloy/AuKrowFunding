@@ -21,11 +21,11 @@ class ProjectRepository extends ServiceEntityRepository
 
     public function findMostLoved()
     {
-        return $this->createQueryBuilder('p')
-            ->orderBy('p.up', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
+        $projects = $this->findAll();
+        usort($projects, function (Project $project1, Project $project2) {
+            return ($project1->getUserProjectLikes()->count() < $project2->getUserProjectLikes()->count());
+        });
+        return array_slice($projects, 0, 10);
     }
 
     public function findClosedToBeFinanced()

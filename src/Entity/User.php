@@ -67,11 +67,6 @@ class User implements UserInterface
     private $linkedinId;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="User", orphanRemoval=true)
-     */
-    private $subscriptions;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="user", orphanRemoval=true)
      */
     private $Projects;
@@ -100,16 +95,34 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=1000, nullable=true)
      */
     private $picture;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserProjectLike", mappedBy="user", orphanRemoval=true ,cascade={"persist"})
+     */
+    private $userProjectLikes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserProjectDislike", mappedBy="user", orphanRemoval=true ,cascade={"persist"})
+     */
+    private $userProjectDislikes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserProjectSubscription", mappedBy="user", orphanRemoval=true ,cascade={"persist"})
+     */
+    private $userProjectSubscriptions;
+
     //endregion
 
     //region -------------------- Function
     public function __construct()
     {
-        $this->subscriptions = new ArrayCollection();
         $this->Projects = new ArrayCollection();
         $this->Donations = new ArrayCollection();
         $this->Parent = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->userProjectLikes = new ArrayCollection();
+        $this->userProjectDislikes = new ArrayCollection();
+        $this->userProjectSubscriptions = new ArrayCollection();
     }
 
     /**
@@ -309,45 +322,6 @@ class User implements UserInterface
     public function setLinkedinId(int $linkedinId): self
     {
         $this->linkedinId = $linkedinId;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Subscription[]
-     */
-    public function getSubscriptions(): Collection
-    {
-        return $this->subscriptions;
-    }
-
-    /**
-     * @param Subscription $subscription
-     * @return $this
-     */
-    public function addSubscription(Subscription $subscription): self
-    {
-        if (!$this->subscriptions->contains($subscription)) {
-            $this->subscriptions[] = $subscription;
-            $subscription->setUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Subscription $subscription
-     * @return $this
-     */
-    public function removeSubscription(Subscription $subscription): self
-    {
-        if ($this->subscriptions->contains($subscription)) {
-            $this->subscriptions->removeElement($subscription);
-            // set the owning side to null (unless already changed)
-            if ($subscription->getUser() === $this) {
-                $subscription->setUser(null);
-            }
-        }
 
         return $this;
     }
@@ -562,4 +536,201 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjectsLiked(): Collection
+    {
+        $projects = new ArrayCollection();
+        foreach ($this->getUserProjectLikes() as $item) {
+            $projects->add($item->getProjectliked());
+        }
+        return $projects;
+    }
+
+    /**
+     * @param Project $projectsLiked
+     * @return $this
+     */
+    public function addProjectsLiked(Project $projectsLiked): self
+    {
+        $this->addUserProjectLike((new UserProjectLike())->setUser($this)->setProjectliked($projectsLiked));
+        return $this;
+    }
+
+    /**
+     * @param Project $projectsLiked
+     * @return $this
+     */
+    public function removeProjectsLiked(Project $projectsLiked): self
+    {
+        $this->removeUserProjectLike((new UserProjectLike())->setUser($this)->setProjectliked($projectsLiked));
+        return $this;
+    }
+
+    /**
+     * @param Project $project
+     * @return bool
+     */
+    public function isProjectLiked(Project $project): bool
+    {
+        return $this->getProjectsLiked()->contains($project);
+    }
+
+    /**
+     * @param Project $project
+     * @return bool
+     */
+    public function isProjectDisliked(Project $project): bool
+    {
+        return $this->getProjectsDisliked()->contains($project);
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjectsDisliked(): Collection
+    {
+        $projects = new ArrayCollection();
+        foreach ($this->getUserProjectDislikes() as $item) {
+            $projects->add($item->getProject());
+        }
+        return $projects;
+    }
+
+    public function addProjectsDisliked(Project $projectsDisliked): self
+    {
+        $this->addUserProjectDislike((new UserProjectDislike())->setUser($this)->setProject($projectsDisliked));
+        return $this;
+    }
+
+    public function removeProjectsDisliked(Project $projectsDisliked): self
+    {
+        $this->removeUserProjectDislike((new UserProjectDislike())->setUser($this)->setProject($projectsDisliked));
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjectSubscribed(): Collection
+    {
+        $projects = new ArrayCollection();
+        foreach ($this->getUserProjectSubscriptions() as $item) {
+            $projects->add($item->getProject());
+        }
+        return $projects;
+    }
+
+    public function isProjectSubscribe(Project $project): bool
+    {
+        return $this->getProjectSubscribed()->contains($project);
+    }
+
+    public function addProjectSubscribed(Project $projectSubscribed): self
+    {
+        $this->addUserProjectSubscription((new UserProjectSubscription())->setUser($this)->setProject($projectSubscribed));
+        return $this;
+    }
+
+    public function removeProjectSubscribed(Project $projectSubscribed): self
+    {
+        $this->removeUserProjectSubscription((new UserProjectSubscription())->setUser($this)->setProject($projectSubscribed));
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProjectLike[]
+     */
+    public function getUserProjectLikes(): Collection
+    {
+        return $this->userProjectLikes;
+    }
+
+    public function addUserProjectLike(UserProjectLike $userProjectLike): self
+    {
+        if (!$this->userProjectLikes->contains($userProjectLike)) {
+            $this->userProjectLikes[] = $userProjectLike;
+            $userProjectLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProjectLike(UserProjectLike $userProjectLike): self
+    {
+        if ($this->userProjectLikes->contains($userProjectLike)) {
+            $this->userProjectLikes->removeElement($userProjectLike);
+            // set the owning side to null (unless already changed)
+            if ($userProjectLike->getUser() === $this) {
+                $userProjectLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProjectDislike[]
+     */
+    public function getUserProjectDislikes(): Collection
+    {
+        return $this->userProjectDislikes;
+    }
+
+    public function addUserProjectDislike(UserProjectDislike $userProjectDislike): self
+    {
+        if (!$this->userProjectDislikes->contains($userProjectDislike)) {
+            $this->userProjectDislikes[] = $userProjectDislike;
+            $userProjectDislike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProjectDislike(UserProjectDislike $userProjectDislike): self
+    {
+        if ($this->userProjectDislikes->contains($userProjectDislike)) {
+            $this->userProjectDislikes->removeElement($userProjectDislike);
+            // set the owning side to null (unless already changed)
+            if ($userProjectDislike->getUser() === $this) {
+                $userProjectDislike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProjectSubscription[]
+     */
+    public function getUserProjectSubscriptions(): Collection
+    {
+        return $this->userProjectSubscriptions;
+    }
+
+    public function addUserProjectSubscription(UserProjectSubscription $userProjectSubscription): self
+    {
+        if (!$this->userProjectSubscriptions->contains($userProjectSubscription)) {
+            $this->userProjectSubscriptions[] = $userProjectSubscription;
+            $userProjectSubscription->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProjectSubscription(UserProjectSubscription $userProjectSubscription): self
+    {
+        if ($this->userProjectSubscriptions->contains($userProjectSubscription)) {
+            $this->userProjectSubscriptions->removeElement($userProjectSubscription);
+            // set the owning side to null (unless already changed)
+            if ($userProjectSubscription->getUser() === $this) {
+                $userProjectSubscription->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

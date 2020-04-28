@@ -137,12 +137,34 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/like", name="project_like", methods={"GET","POST"})
      * @param Project $project
+     * @return Response
      */
     public function like(Project $project): Response
     {
-        $project->setUp($project->getUp() + 1);
+        /** @var User $user */
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['username' => $this->getUser()->getUsername()]);
+        $project->addLikep($user);
+        $project->removeDislike($user);
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($project);
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return $this->render('project/show.html.twig', [
+            'project' => $project,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/unlike", name="project_unlike", methods={"GET","POST"})
+     * @param Project $project
+     * @return Response
+     */
+    public function unLike(Project $project): Response
+    {
+        /** @var User $user */
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['username' => $this->getUser()->getUsername()]);
+        $project->removeLike($user);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
         $entityManager->flush();
         return $this->render('project/show.html.twig', [
             'project' => $project,
@@ -152,11 +174,35 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/dislike", name="project_dislike", methods={"GET","POST"})
      * @param Project $project
+     * @return Response
      */
     public function dislike(Project $project): Response
     {
-        $project->setDown($project->getDown() + 1);
+        /** @var User $user */
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['username' => $this->getUser()->getUsername()]);
+        $project->addDislike($user);
+        $project->removelike($user);
         $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->persist($project);
+        $entityManager->flush();
+        return $this->render('project/show.html.twig', [
+            'project' => $project,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/undislike", name="project_undislike", methods={"GET","POST"})
+     * @param Project $project
+     * @return Response
+     */
+    public function unDislike(Project $project): Response
+    {
+        /** @var User $user */
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['username' => $this->getUser()->getUsername()]);
+        $project->removeDislike($user);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
         $entityManager->persist($project);
         $entityManager->flush();
         return $this->render('project/show.html.twig', [
@@ -167,10 +213,27 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/sub", name="project_sub", methods={"GET","POST"})
      * @param Project $project
+     * @return Response
      */
     public function subscribe(Project $project): Response
     {
-        $project->addSubscription((new Subscription())->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['username' => $this->getUser()->getUsername()])));
+        $project->addSubscribe($this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['username' => $this->getUser()->getUsername()]));
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($project);
+        $entityManager->flush();
+        return $this->render('project/show.html.twig', [
+            'project' => $project,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/unsub", name="project_unsub", methods={"GET","POST"})
+     * @param Project $project
+     * @return Response
+     */
+    public function unSubscribe(Project $project): Response
+    {
+        $project->removeSubscribe($this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['username' => $this->getUser()->getUsername()]));
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($project);
         $entityManager->flush();
