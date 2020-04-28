@@ -3,7 +3,7 @@
 {% block title %}{% trans %}Project{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Project{% endtrans %}</h1>
+    <h1 style="color: rgb(0,123,255);">{{ project.title }}</h1>
 
     <table class="table">
         <tbody>
@@ -25,10 +25,12 @@
         </tr>
         <tr>
             <th>{% trans %}Up{% endtrans %}</th>
+             <i data-up="2" class="sub fas fa-thumbs-up"></i></th>
             <td>{{ project.likep.count }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Down{% endtrans %}</th>
+            <th>{% trans %}Down{% endtrans %}
+                <i data-up="2" class="sub fas fa-thumbs-down"></i></th>
             <td>{{ project.down }}</td>
         </tr>
         <tr>
