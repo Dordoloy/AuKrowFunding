@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <th>{% trans %}Up{% endtrans %}</th>
-            <td>{{ project.Up }}</td>
+            <td>{{ project.likep.count }}</td>
         </tr>
         <tr>
             <th>{% trans %}Down{% endtrans %}</th>
@@ -33,11 +33,11 @@
         </tr>
         <tr>
             <th>{% trans %}Description{% endtrans %}</th>
-            <td>{{ project.Description }}</td>
+            <td>{% autoescape %}{{ project.Description|raw }}{% endautoescape %}</td>
         </tr>
         <tr>
             <th>{% trans %}Miniature{% endtrans %}</th>
-            <td>{{ project.Miniature }}</td>
+            <td><img src="{{ project.Miniature }}"/></td>
         </tr>
         </tbody>
     </table>

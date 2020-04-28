@@ -32,14 +32,6 @@ class Project
      */
     private $report;
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $up;
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $down;
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
@@ -47,10 +39,6 @@ class Project
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $miniature;
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="Project", orphanRemoval=true,cascade={"persist"})
-     */
-    private $subscriptions;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Projects")
      * @ORM\JoinColumn(nullable=false)
@@ -89,6 +77,21 @@ class Project
     private $rewards;
 
     private $rest;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserProjectLike", mappedBy="projectliked", orphanRemoval=true, cascade={"persist"})
+     */
+    private $userProjectLikes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserProjectDislike", mappedBy="project", orphanRemoval=true, cascade={"persist"})
+     */
+    private $userProjectDislikes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserProjectSubscription", mappedBy="project", orphanRemoval=true, cascade={"persist"})
+     */
+    private $userProjectSubscriptions;
     //endregion
 
 
@@ -163,18 +166,7 @@ class Project
      */
     public function getUp(): ?int
     {
-        return $this->up;
-    }
-
-    /**
-     * @param int $up
-     * @return $this
-     */
-    public function setUp(int $up): self
-    {
-        $this->up = $up;
-
-        return $this;
+        return $this->getLikep()->count();
     }
 
     /**
@@ -182,18 +174,7 @@ class Project
      */
     public function getDown(): ?int
     {
-        return $this->down;
-    }
-
-    /**
-     * @param int $down
-     * @return $this
-     */
-    public function setDown(int $down): self
-    {
-        $this->down = $down;
-
-        return $this;
+        return $this->getDislike()->count();
     }
 
     /**
@@ -211,45 +192,6 @@ class Project
     public function setMiniature(?string $Minature): self
     {
         $this->miniature = $Minature;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Subscription[]
-     */
-    public function getSubscriptions(): Collection
-    {
-        return $this->subscriptions;
-    }
-
-    /**
-     * @param Subscription $subscription
-     * @return $this
-     */
-    public function addSubscription(Subscription $subscription): self
-    {
-        if (!$this->subscriptions->contains($subscription)) {
-            $this->subscriptions[] = $subscription;
-            $subscription->setProject($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Subscription $subscription
-     * @return $this
-     */
-    public function removeSubscription(Subscription $subscription): self
-    {
-        if ($this->subscriptions->contains($subscription)) {
-            $this->subscriptions->removeElement($subscription);
-            // set the owning side to null (unless already changed)
-            if ($subscription->getProject() === $this) {
-                $subscription->setProject(null);
-            }
-        }
 
         return $this;
     }
@@ -496,13 +438,15 @@ class Project
      */
     public function __construct()
     {
-        $this->subscriptions = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->donations = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        $this->rewards = new ArrayCollection();
+        $this->userProjectLikes = new ArrayCollection();
+        $this->userProjectDislikes = new ArrayCollection();
+        $this->userProjectSubscriptions = new ArrayCollection();
     }
+
     //endregion
 
     /**
@@ -520,7 +464,7 @@ class Project
      */
     public function getNumberOfShares(): int
     {
-        return $this->getSubscriptions()->count();
+        return $this->getSubscribe()->count();
     }
 
     /**
@@ -562,5 +506,178 @@ class Project
         }
         return $this->getGoal() - $total;
     }
+
     //endregion
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getLikep(): Collection
+    {
+        $users = [];
+        foreach ($this->getUserProjectLikes() as $userProjectLike) {
+            array_push($users, $userProjectLike->getUser());
+        }
+        return new ArrayCollection($users);
+    }
+
+    public function addLikep(?User $user): self
+    {
+        if (!$this->getUserProjectLikes()->contains((new UserProjectLike())->setUser($user)->setProjectliked($this))) {
+            $this->userProjectLikes[] += (new userProjectLike())->setUser($user)->setProjectliked($this);
+        }
+        return $this;
+    }
+
+    public function removeLike(?User $user): self
+    {
+        $this->removeUserProjectLike((new UserProjectLike())->setUser($user)->setProjectliked($this));
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getDislike(): Collection
+    {
+        $users = [];
+        foreach ($this->getUserProjectDislikes() as $userProjectDislike) {
+            array_push($users, $userProjectDislike->getUser());
+        }
+        return new ArrayCollection($users);
+    }
+
+    public function addDislike(?User $user): self
+    {
+        if (!$this->getUserProjectDislikes()->contains((new UserProjectDislike())->setUser($user)->setProject($this))) {
+            $this->userProjectDislikes[] += (new UserProjectDislike())->setUser($user)->setProject($this);
+        }
+        return $this;
+    }
+
+    public function removeDislike(?User $user): self
+    {
+        $this->removeUserProjectDislike((new UserProjectDislike())->setUser($user)->setProject($this));
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getSubscribe(): Collection
+    {
+        $users = [];
+        foreach ($this->getUserProjectSubscriptions() as $userProjectSubscription) {
+            array_push($users, $userProjectSubscription->getUser());
+        }
+        return new ArrayCollection($users);
+    }
+
+    public function addSubscribe(User $user): self
+    {
+        if (!$this->getUserProjectSubscriptions()->contains((new UserProjectSubscription())->setUser($user)->setProject($this))) {
+            $this->userProjectSubscriptions->add((new UserProjectSubscription())->setUser($user)->setProject($this));
+        }
+
+        return $this;
+    }
+
+    public function removeSubscribe(User $user): self
+    {
+        $this->removeUserProjectSubscription((new UserProjectSubscription())->setUser($user)->setProject($this));
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProjectLike[]
+     */
+    public function getUserProjectLikes(): Collection
+    {
+        return $this->userProjectLikes;
+    }
+
+    public function addUserProjectLike(UserProjectLike $userProjectLike): self
+    {
+        if (!$this->userProjectLikes->contains($userProjectLike)) {
+            $this->userProjectLikes[] = $userProjectLike;
+            $userProjectLike->setProjectliked($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProjectLike(UserProjectLike $userProjectLike): self
+    {
+        if ($this->userProjectLikes->contains($userProjectLike)) {
+            $this->userProjectLikes->removeElement($userProjectLike);
+            // set the owning side to null (unless already changed)
+            if ($userProjectLike->getProjectliked() === $this) {
+                $userProjectLike->setProjectliked(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProjectDislike[]
+     */
+    public function getUserProjectDislikes(): Collection
+    {
+        return $this->userProjectDislikes;
+    }
+
+    public function addUserProjectDislike(UserProjectDislike $userProjectDislike): self
+    {
+        if (!$this->userProjectDislikes->contains($userProjectDislike)) {
+            $this->userProjectDislikes[] = $userProjectDislike;
+            $userProjectDislike->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProjectDislike(UserProjectDislike $userProjectDislike): self
+    {
+        if ($this->userProjectDislikes->contains($userProjectDislike)) {
+            $this->userProjectDislikes->removeElement($userProjectDislike);
+            // set the owning side to null (unless already changed)
+            if ($userProjectDislike->getProject() === $this) {
+                $userProjectDislike->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserProjectSubscription[]
+     */
+    public function getUserProjectSubscriptions(): Collection
+    {
+        return $this->userProjectSubscriptions;
+    }
+
+    public function addUserProjectSubscription(UserProjectSubscription $userProjectSubscription): self
+    {
+        if (!$this->userProjectSubscriptions->contains($userProjectSubscription)) {
+            $this->userProjectSubscriptions[] = $userProjectSubscription;
+            $userProjectSubscription->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProjectSubscription(UserProjectSubscription $userProjectSubscription): self
+    {
+        if ($this->userProjectSubscriptions->contains($userProjectSubscription)) {
+            $this->userProjectSubscriptions->removeElement($userProjectSubscription);
+            // set the owning side to null (unless already changed)
+            if ($userProjectSubscription->getProject() === $this) {
+                $userProjectSubscription->setProject(null);
+            }
+        }
+
+        return $this;
+    }
 }
