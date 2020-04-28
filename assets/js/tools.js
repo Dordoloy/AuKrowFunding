@@ -45,9 +45,7 @@ $(document).ready(function () {
     })
     $(".unsub").each(function () {
         $(this).on("click", function () {
-            $.ajax({
-                url: $(this).data("url")
-            });
+            $.ajax({url: $(this).data("url")});
             $(this).removeClass('text-info');
         })
     })

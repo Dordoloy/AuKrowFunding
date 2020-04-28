@@ -162,7 +162,7 @@ class ProjectController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['username' => $this->getUser()->getUsername()]);
-        $project->removeDislike($user);
+        $project->removeLike($user);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();

@@ -524,14 +524,18 @@ class Project
     public function addLikep(?User $user): self
     {
         if (!$this->getUserProjectLikes()->contains((new UserProjectLike())->setUser($user)->setProjectliked($this))) {
-            $this->userProjectLikes[] += (new userProjectLike())->setUser($user)->setProjectliked($this);
+            $this->userProjectLikes->add((new userProjectLike())->setUser($user)->setProjectliked($this));
         }
         return $this;
     }
 
     public function removeLike(?User $user): self
     {
-        $this->removeUserProjectLike((new UserProjectLike())->setUser($user)->setProjectliked($this));
+        foreach ($this->getUserProjectLikes() as $userProjectLike) {
+            if ($userProjectLike->getUser() === $user) {
+                $this->removeUserProjectLike($userProjectLike);
+            }
+        }
         return $this;
     }
 
@@ -550,14 +554,18 @@ class Project
     public function addDislike(?User $user): self
     {
         if (!$this->getUserProjectDislikes()->contains((new UserProjectDislike())->setUser($user)->setProject($this))) {
-            $this->userProjectDislikes[] += (new UserProjectDislike())->setUser($user)->setProject($this);
+            $this->userProjectDislikes->add((new UserProjectDislike())->setUser($user)->setProject($this));
         }
         return $this;
     }
 
     public function removeDislike(?User $user): self
     {
-        $this->removeUserProjectDislike((new UserProjectDislike())->setUser($user)->setProject($this));
+        foreach ($this->getUserProjectDislikes() as $projectDislike) {
+            if ($projectDislike->getUser() === $user) {
+                $this->removeUserProjectDislike($projectDislike);
+            }
+        }
         return $this;
     }
 
@@ -584,7 +592,11 @@ class Project
 
     public function removeSubscribe(User $user): self
     {
-        $this->removeUserProjectSubscription((new UserProjectSubscription())->setUser($user)->setProject($this));
+        foreach ($this->getUserProjectSubscriptions() as $projectSubscription) {
+            if ($projectSubscription->getUser() === $user) {
+                $this->removeUserProjectSubscription($projectSubscription);
+            }
+        }
         return $this;
     }
 
