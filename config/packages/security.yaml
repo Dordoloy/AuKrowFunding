@@ -44,8 +44,8 @@ security:
     ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
   access_control:
-    - { path: '^/admin/users', roles: ROLE_SUPER_ADMIN }
-    - { path: '^/admin', roles: ROLE_ADMIN }
+    - { path: '^/fr/admin/users', roles: ROLE_SUPER_ADMIN }
+    - { path: '^/fr/admin', roles: ROLE_ADMIN }
     - { path: '^/profile', roles: ROLE_USER }
     - { path: '^/api/(post|comment)/\d+$', roles: ROLE_USER }
     - { path: '^/login$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
