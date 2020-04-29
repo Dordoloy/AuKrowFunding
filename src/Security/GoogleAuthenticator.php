@@ -103,7 +103,7 @@ class GoogleAuthenticator extends SocialAuthenticator
         } else {
             // 2) do we have a matching user by email?
             $user = $this->em->getRepository(User::class)
-                ->findOneBy(['email' => $email]);
+                ->findOneBy(['Email' => $email]);
 
             if (!$user) {
                 /** @var User $user */
