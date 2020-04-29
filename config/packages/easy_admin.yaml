@@ -12,7 +12,7 @@ easy_admin:
       new:
         fields:
           - { property: 'name', type: 'text', type_option: { required: true} }
-          - { property: 'parent', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Category' } }
+          - { property: 'parent', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\User' } }
           - { property: 'categories', label: 'Children', type_options: { multiple: true } }
     Donation:
       class: App\Entity\Donation
