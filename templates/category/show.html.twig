@@ -3,24 +3,111 @@
 {% block title %}{% trans %}Category{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Category{% endtrans %}</h1>
+    <nav class="navbar navbar-expand-md navbar-light bg-faded">
+        <div class="collapse navbar-collapse" id="navbarCategory">
+            <ul class="navbar-nav">
+                {% for category in categories %}
+                    <li class="nav-item ">
+                        <a class="nav-link"
+                           href="{{ path('category_show', {'id':category.id}) }}">{{ category.Name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarCategory" aria-controls="navbarCategory" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <h1>{{ CategorySelected }}</h1>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ category.id }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Name{% endtrans %}</th>
-            <td>{{ category.Name }}</td>
-        </tr>
-        </tbody>
-    </table>
+    <article class="projectArticle">
+        <div class="d-inline-flex">
+            <a href="{{ path('donation_new') }}"
+               class="btn"
+               style="margin-left: 30px; background-color: #ffc107; color: white">{% trans %}Donate{% endtrans %}</a>
+        </div>
+        <div class="closedProjects projectContainer">
+            {% for project in Projects %}
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}"
+                         style="height: 12em">
+                    <div class="card-body">
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                 style="width: {{ (project.goal - project.rest) / project.goal * 100 }}%"
+                                 aria-valuenow="{{ (project.goal - project.rest) / project.goal * 100 }}"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.goal - project.rest }} / {{ project.goal }}€</p>
+                        <div class="d-inline-flex">
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('project_show', {'id': project.id}) }}"
+                                   class="btn btn-primary">{% trans %}Read
+                                        More{% endtrans %}</a>
+                                <div class="d-inline-flex">
+                                    {% if app.user.isProjectLiked(project) %}
+                                        <i data-id="{{ project.id }}" data-up="1"
+                                           data-url="{{ path('project_unlike', {'id': project.id}) }}"
+                                           class="unup fas fa-thumbs-up  text-primary"></i>
+                                    {% else %}
+                                        <i data-id="{{ project.id }}" data-up="1"
+                                           data-url="{{ path('project_like', {'id': project.id}) }}"
+                                           class="up fas fa-thumbs-up"></i>
+                                    {% endif %}
+                                    <p class="upNB">{{ project.likep.count }}</p>
+                                </div>
 
-    <a href="{{ path('category_index') }}">{% trans %}back to list{% endtrans %}</a>
+                                {% if app.user.isProjectDisliked(project) %}
+                                    <i data-id="{{ project.id }}" data-up="0"
+                                       data-url="{{ path('project_undislike', {'id': project.id}) }}"
+                                       class="undown fas fa-thumbs-down text-danger"></i>
+                                {% else %}
+                                    <i data-id="{{ project.id }}" data-up="0"
+                                       data-url="{{ path('project_dislike', {'id': project.id}) }}"
+                                       class="down fas fa-thumbs-down"></i>
+                                {% endif %}
 
-    <a href="{{ path('category_edit', {'id': category.id}) }}">{% trans %}edit{% endtrans %}</a>
+                                <p class="downNB">{{ project.down }}</p>
+                                {% if app.user.isProjectSubscribe(project) %}
+                                    <i data-up="2" class="unsub fas fa-bookmark text-info"
+                                       data-url="{{ path('project_unsub', {'id': project.id}) }}"></i>
+                                {% else %}
+                                    <i data-up="2" class="sub fas fa-bookmark"
+                                       data-url="{{ path('project_sub', {'id': project.id}) }}"></i>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ path('project_show', {'id': project.id}) }}"
+                                   class="btn btn-primary">{% trans %}Read
+                                        More{% endtrans %}</a>
+                                <div class="d-inline-flex">
+                                    <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
+                                                class="fas fa-thumbs-up"
+                                                onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"></i></a>
+                                    <p>{{ project.up }}</p>
+                                </div>
+                                <div class="d-inline-flex">
+                                    <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
+                                                class="fas fa-thumbs-down"></i></a>
+                                    <p onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')">{{ project.down }}</p>
+                                </div>
+                                <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
+                                            class="fas fa-bookmark"></i></a>
+                            {% endif %}
+                        </div>
+                        {% if (project.goal - project.rest) / project.goal * 100 >= 100 %}
+                            <img src="{{ asset('Resources/Logo.svg') }}" alt="pingouin" style="width: 50px">
+                        {% elseif (project.goal - project.rest) / project.goal * 100 < 50 %}
+                            <img src="{{ asset('Resources/bebe_pingouin.svg') }}" alt="pingouin" style="width: 50px">
+                        {% elseif (project.goal - project.rest) / project.goal * 100 >= 50 %}
+                            <img src="{{ asset('Resources/ado_pingouin.svg') }}" alt="pingouin" style="width: 50px">
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </article>
 
-    {{ include('category/_delete_form.html.twig') }}
 {% endblock %}

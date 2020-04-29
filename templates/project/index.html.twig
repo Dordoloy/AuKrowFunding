@@ -3,22 +3,30 @@
 {% block title %}{% trans %}All project to support{% endtrans %}{% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-link navCategories" href="">{% trans %}All{% endtrans %}</a>
-            {% for category in Category %}
-                <li class="nav-item navCategories">
-                    <a class="nav-link" href="">{{ category.Name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+    <nav class="navbar navbar-expand-md navbar-light bg-faded">
+        <div class="collapse navbar-collapse" id="navbarCategory">
+            <ul class="navbar-nav">
+                {% for category in Category %}
+                    <li class="nav-item ">
+                        <a class="nav-link"
+                           href="{{ path('category_show', {'id':category.id}) }}">{{ category.Name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarCategory" aria-controls="navbarCategory" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </nav>
 
     <article class="projectArticle">
         <div class="d-inline-flex">
             <h2>{% trans %}Close to be financed{% endtrans %}</h2>
             <a href="{{ path('donation_new') }}"
-                class="btn" style="margin-left: 30px; background-color: #ffc107; color: white">{% trans %}Donate{% endtrans %}</a>
+               class="btn"
+               style="margin-left: 30px; background-color: #ffc107; color: white">{% trans %}Donate{% endtrans %}</a>
         </div>
         <div class="closedProjects projectContainer">
             {% for project in CloseProjects %}
@@ -172,11 +180,11 @@
                                             class="fas fa-bookmark"></i></a>
                             {% endif %}
                         </div>
-                        {% if (project.goal - project.rest) / project.goal > 0 or (project.goal - project.rest) / project.goal * 100 == 100 %}
+                        {% if (project.goal - project.rest) / project.goal * 100 >= 100 %}
                             <img src="{{ asset('Resources/Logo.svg') }}" alt="pingouin" style="width: 50px">
                         {% elseif (project.goal - project.rest) / project.goal * 100 < 50 %}
                             <img src="{{ asset('Resources/bebe_pingouin.svg') }}" alt="pingouin" style="width: 50px">
-                        {% elseif (project.goal - project.rest) / project.goal * 100 >= 50 and (project.goal - project.rest) / project.goal * 100 <= 99 %}
+                        {% elseif (project.goal - project.rest) / project.goal * 100 >= 50 %}
                             <img src="{{ asset('Resources/ado_pingouin.svg') }}" alt="pingouin" style="width: 50px">
                         {% endif %}
                     </div>

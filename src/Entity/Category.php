@@ -34,14 +34,15 @@ class Category
     private $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Project", inversedBy="categories")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="categories")
      */
-    private $Project;
+    private $projects;
+
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
-        $this->Project = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,10 +113,25 @@ class Category
         return $this->Project;
     }
 
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
     public function addProject(Project $project): self
     {
-        if (!$this->Project->contains($project)) {
-            $this->Project[] = $project;
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->addCategory($this);
         }
 
         return $this;
@@ -123,15 +139,11 @@ class Category
 
     public function removeProject(Project $project): self
     {
-        if ($this->Project->contains($project)) {
-            $this->Project->removeElement($project);
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
+            $project->removeCategory($this);
         }
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->getName();
     }
 }

@@ -59,6 +59,6 @@ class UserProjectLike
 
     public function __toString()
     {
-        return $this->getProject() . $this->getUser();
+        return $this->getProjectliked() . $this->getUser();
     }
 }

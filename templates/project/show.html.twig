@@ -43,8 +43,11 @@
         </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('project_edit', {'id': project.id}) }}" id="editProject" class="btn">{% trans %}edit{% endtrans %}</a>
-    <a href="{{ path('project_index') }}" class="btn backToList" style="margin-top: 0; margin-left: 0.5em">{% trans %}back to list{% endtrans %}</a>
+    {% if project.user == app.user %}
+        <a href="{{ path('project_edit', {'id': project.id}) }}" id="editProject"
+           class="btn">{% trans %}edit{% endtrans %}</a>
+    {% endif %}
+    <a href="{{ path('project_index') }}" class="btn backToList"
+       style="margin-top: 0; margin-left: 0.5em">{% trans %}back to list{% endtrans %}</a>
 
 {% endblock %}
