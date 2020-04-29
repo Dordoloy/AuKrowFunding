@@ -56,4 +56,9 @@ class UserProjectLike
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getProject() . $this->getUser();
+    }
 }

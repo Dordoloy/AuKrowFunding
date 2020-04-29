@@ -18,14 +18,14 @@ easy_admin:
       class: App\Entity\Donation
       label: 'Donation'
       list:
-        fields: ['amount', 'dateTime', 'user', 'project']
+        fields: ['amount', 'user', 'ProjectParent']
         title: "The last donation"
         sort: ['id', 'DESC']
       new:
         fields:
           - { property: 'amount', type: 'money', type_option: { required: true} }
           - { property: 'dateTime', type: 'datetime', type_option: { required: true} }
-          - { property: 'user', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Category' } }
+          - { property: 'user', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\User' } }
           - { property: 'projectParent', label: 'Project target', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Project' } }
     Project:
       class: App\Entity\Project
