@@ -32,7 +32,7 @@ class ProjectRepository extends ServiceEntityRepository
     {
         $projects = $this->findAll();
         usort($projects, function (Project $project1, Project $project2) {
-            return $project1->getRest() > $project2->getRest();
+            return $project1->getRest() / $project1->getGoal() > $project2->getRest() / $project2->getGoal();
         });
         return array_slice($projects, 0, 10);
     }
