@@ -89,7 +89,7 @@
                                             class="fas fa-bookmark"></i></a>
                             {% endif %}
                         </div>
-                        {% if (project.goal - project.rest) / project.goal * 100 == 100 %}
+                        {% if (project.goal - project.rest) / project.goal * 100 >= 100 %}
                             <img src="{{ asset('Resources/Logo.svg') }}" alt="pingouin" style="width: 50px">
                         {% elseif (project.goal - project.rest) / project.goal * 100 < 50 %}
                             <img src="{{ asset('Resources/bebe_pingouin.svg') }}" alt="pingouin" style="width: 50px">
@@ -172,11 +172,11 @@
                                             class="fas fa-bookmark"></i></a>
                             {% endif %}
                         </div>
-                        {% if (project.goal - project.rest) / project.goal * 100 == 100 %}
+                        {% if (project.goal - project.rest) / project.goal > 0 or (project.goal - project.rest) / project.goal * 100 == 100 %}
                             <img src="{{ asset('Resources/Logo.svg') }}" alt="pingouin" style="width: 50px">
                         {% elseif (project.goal - project.rest) / project.goal * 100 < 50 %}
                             <img src="{{ asset('Resources/bebe_pingouin.svg') }}" alt="pingouin" style="width: 50px">
-                        {% elseif (project.goal - project.rest) / project.goal * 100 >= 50 %}
+                        {% elseif (project.goal - project.rest) / project.goal * 100 >= 50 and (project.goal - project.rest) / project.goal * 100 <= 99 %}
                             <img src="{{ asset('Resources/ado_pingouin.svg') }}" alt="pingouin" style="width: 50px">
                         {% endif %}
                     </div>
