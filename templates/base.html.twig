@@ -58,19 +58,27 @@
                     <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdownMenuLink"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ path('app_login') }}">{% trans %}Connection{% endtrans %}</a>
-                        <a class="dropdown-item" href="{{ path('register') }}">{% trans %}Register{% endtrans %}</a>
-                        <div class="dropdown-divider"></div>
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="dropdown-item" href="{{ path('connect_facebook_start') }}"><i
-                                            class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="dropdown-item" href="{{ path('connect_google_start') }}"><i
-                                            class="fab fa-google-plus-g"></i></a>
-                            </li>
-                        </ul>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a class="dropdown-item" href="{{ path('user_show') }}">{{ app.user.username }}</a>
+                            <a class="dropdown-item"
+                               href="{{ path('app_logout') }}">{% trans %}Log out{% endtrans %}</a>
+
+                        {% else %}
+                            <a class="dropdown-item"
+                               href="{{ path('app_login') }}">{% trans %}Connection{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path('register') }}">{% trans %}Register{% endtrans %}</a>
+                            <div class="dropdown-divider"></div>
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item" href="{{ path('connect_facebook_start') }}"><i
+                                                class="fab fa-facebook-f"></i></a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item" href="{{ path('connect_google_start') }}"><i
+                                                class="fab fa-google-plus-g"></i></a>
+                                </li>
+                            </ul>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="nav-item dropdown">
