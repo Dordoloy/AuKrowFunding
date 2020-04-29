@@ -19,10 +19,11 @@
         <div class="closedProjects projectContainer">
             {% for project in CloseProjects %}
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}" style="height: 12em">
+                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}"
+                         style="height: 12em">
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">0 / {{ project.goal }}€</p>
+                        <p class="card-text">{{ project.goal - project.rest }} / {{ project.goal }}€</p>
                         <div class="d-inline-flex">
                             {% if is_granted('ROLE_USER') %}
                                 <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read
@@ -86,10 +87,11 @@
         <div class="lovedProjects projectContainer">
             {% for project in LovedProjects %}
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}" style="height: 12em">
+                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}"
+                         style="height: 12em">
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">0 / {{ project.goal }}€</p>
+                        <p class="card-text">{{ project.goal - project.rest }} / {{ project.goal }}€</p>
                         <div class="d-inline-flex">
                             {% if is_granted('ROLE_USER') %}
                                 <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read
