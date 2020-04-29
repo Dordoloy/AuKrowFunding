@@ -54,9 +54,9 @@ class ProjectController extends AbstractController
             $project->setUser($this->getUser());
             $project->setStatu($statusRepository->findAll()[0]);
             $project->setReport(0);
-            $project->setUp(0);
-            $project->setDown(0);
-            $project->setStatu($statusRepository->find(0));
+            $project->getUp(0);
+            $project->getDown(0);
+//            $project->setStatu($statusRepository->find(0));
             $entityManager->persist($project);
             $entityManager->flush();
             return $this->redirectToRoute('project_index');
