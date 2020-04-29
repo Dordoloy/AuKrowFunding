@@ -76,8 +76,6 @@ class Project
      */
     private $rewards;
 
-    private $rest;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserProjectLike", mappedBy="projectliked", orphanRemoval=true, cascade={"persist"})
      */
@@ -501,9 +499,10 @@ class Project
     public function getRest(): float
     {
         $total = 0;
-        foreach ($this->donations as $don) {
+        foreach ($this->getDonations() as $don) {
             $total += $don->getAmount();
         }
+        $rest = $this->getGoal() - $total;
         return $this->getGoal() - $total;
     }
 

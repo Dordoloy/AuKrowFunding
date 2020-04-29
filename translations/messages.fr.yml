@@ -98,5 +98,10 @@ Profile: Profile
 'Edit Profile': 'Modifier votre profile'
 'Your projects': 'Vos projets'
 'Followed projects': 'Les projets que vous suivez'
-'All project to support': '__All project to support'
-'You need to be authenticated for make this action': '__You need to be authenticated for make this action'
+'All project to support': 'Tous les projets à financer'
+'You need to be authenticated for make this action': 'Vous devez être authentifié pour faire cette action'
+'Log out': 'Déconnexion'
+All: Tous
+'Close to be financed': 'Bientôt financé'
+"Read\n                                    More": "Lire\n                                    Plus"
+'Most loved projects': 'Les projets les plus aimés'
