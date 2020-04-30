@@ -75,12 +75,12 @@
             {% endif %}
         </div>
         <div class="card-footer">
-            <small class="text-muted">
+            <small class="text-muted d-inline-flex">
                 {% for i in 0..4 %}
                     {% if i < ((5*(project.likep|length / (project.dislike|length + 1)))|round) %}
-                        &#9733;
+                        <p class="text-warning">&#9733;</p>
                     {% else %}
-                        &#9734;
+                        <p>&#9734;</p>
                     {% endif %}
                 {% endfor %}</small>
         </div>
