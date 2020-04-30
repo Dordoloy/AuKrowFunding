@@ -339,7 +339,11 @@ class Project
      */
     public function getComments(): Collection
     {
-        return $this->comments;
+        $comments = $this->comments->toArray();
+        usort($comments, function (Comment $comment1, Comment $comment2) {
+            return $comment1->getDateTile() < $comment2->getDateTile();
+        });
+        return new ArrayCollection($comments);
     }
 
     /**

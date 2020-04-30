@@ -89,6 +89,7 @@ class ProjectController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
+            return $this->redirectToRoute('project_show', ['id' => $project->getId()]);
         }
         return $this->render('project/show.html.twig', [
             'project' => $project,

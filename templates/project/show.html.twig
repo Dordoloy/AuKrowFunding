@@ -69,10 +69,14 @@
 
                 {% for comment in project.comments %}
                     <div class="media mb-4">
-                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                        <div class="media-body">
-                            <h5 class="mt-0">{{ comment.user }}</h5>
-                            <h6>{{ comment.dateTile|date("m/d/Y") }}</h6>
+                        <img class="d-flex mr-3 rounded-circle" width="50px" height="50px"
+                             src="{{ asset('Resources/Logo.svg') }}" alt="">
+                        <div class="media-body bg-light p-3">
+                            <div class="d-inline-flex">
+                                <h5 class="mt-0">{{ comment.user }}</h5>
+                                <h6>{{ comment.dateTile|format_datetime( locale=app.request.locale) }}</h6>
+                            </div>
+                            <hr>
                             {{ comment.message }}
                         </div>
                     </div>
