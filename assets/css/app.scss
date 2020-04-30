@@ -1,0 +1,43 @@
+/* import the necessary Bootstrap files */
+
+$primary: #d12e21;
+@import '~bootstrap';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+.btn {
+    background-color: #d12e21 !important;
+    border-color: #d12e21 !important;
+}
+.btn-primary {
+    background-color: #d12e21 !important;
+    border-color: #d12e21 !important;
+}
+.btn-lg {
+    background-color: #d12e21 !important;
+    border-color: #d12e21 !important;
+}
+
+.nav-link {
+    border-bottom: rgba(0,0,0,0) 3px solid !important;
+    transition: all ease 0.5s !important;
+}
+
+.nav-link:hover {
+    border-bottom: #d12e21 3px solid !important;
+}
+
+body {
+    background-color: lightgray;
+}
+
+h1 {
+    color: #c92c20;
+}
+
+i {
+    cursor: pointer;
+}
+
+.socia {
+    margin: 7px;
+}

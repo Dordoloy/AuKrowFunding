@@ -20,14 +20,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </nav>
-    <h1>{{ CategorySelected }}</h1>
 
+    <div class="d-inline-flex">
+        <h1>{{ CategorySelected }}</h1>
+        <a href="{{ path('donation_new') }}"
+           class="btn"
+           style="margin-left: 30px; background-color: #ffc107 !important; color: white; border-color: #ffc107 !important;">{% trans %}Donate{% endtrans %}</a>
+    </div>
     <article class="projectArticle">
-        <div class="d-inline-flex">
-            <a href="{{ path('donation_new') }}"
-               class="btn"
-               style="margin-left: 30px; background-color: #ffc107; color: white">{% trans %}Donate{% endtrans %}</a>
-        </div>
         <div class="closedProjects projectContainer">
             {% for project in Projects %}
                 {{ include('project/_project_card.html.twig') }}
