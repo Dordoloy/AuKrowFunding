@@ -6,7 +6,7 @@
 }
 
 .navCategories:hover {
-    border-bottom: rgba(0,123,255,1) 3px solid;
+    border-bottom: #d12e21 3px solid;
 }
 
 .nav-link {
@@ -49,7 +49,6 @@ svg {
 }
 
 .backToList {
-    background-color: #3875d7 !important;
     color: white !important;
     width: 7em;
     margin-top: -6.6em;

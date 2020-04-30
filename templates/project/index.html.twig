@@ -8,7 +8,7 @@
             <ul class="navbar-nav">
                 {% for category in Category %}
                     <li class="nav-item ">
-                        <a class="nav-link"
+                        <a class="nav-link navCategories"
                            href="{{ path('category_show', {'id':category.id}) }}">{{ category.Name }}</a>
                     </li>
                 {% endfor %}
@@ -67,7 +67,7 @@
             <h2>{% trans %}Close to be financed{% endtrans %}</h2>
             <a href="{{ path('donation_new') }}"
                class="btn"
-               style="margin-left: 30px; background-color: #ffc107; color: white">{% trans %}Donate{% endtrans %}</a>
+               style="margin-left: 30px; background-color: #ffc107 !important; color: white; border-color: #ffc107 !important;">{% trans %}Donate{% endtrans %}</a>
         </div>
         <div class="closedProjects projectContainer">
             {% for project in CloseProjects %}
