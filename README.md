@@ -21,7 +21,7 @@ If you want to propose your project or if you want to subscribe to a project to 
 
 To donate by watching a video, we will also ask you to create an account to avoid robots to take control of web :robot_face: .
 
-**AuKrowFunding** :penguin: and its team reserves the right of moderation on each project proposal: no_entry :. We remind you that each project must respect the laws in force in the country (France: fr :).
+**AuKrowFunding** :penguin: and its team reserves the right of moderation on each project proposal :no_entry: . We remind you that each project must respect the laws in force in the country (France :fr:).
 
 **AuKrowFunding** :penguin: is a public website, the content et the type of projects must be adapted to a minor audience :child:.
 
