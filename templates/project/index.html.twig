@@ -20,7 +20,48 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </nav>
-
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="w-100">
+            <div id="carouselExampleIndicators" class="carousel slide my-4 w-100 d-flex" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for i in 0..2 %}
+                        {% if i == 0 %}
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        {% else %}
+                            <li data-target="#carouselExampleIndicators" data-slide-to="{{ i }}"></li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner d-flex m-auto" role="listbox" style="height: 500px;">
+                    {% for i in 0..2 %}
+                        {% if i == 0 %}
+                            <div class="carousel-item active m-auto">
+                                <a href="{{ path('project_show', {'id': LovedProjects[i].id }) }}"><img
+                                            class="d-block img-fluid m-auto" src="{{ LovedProjects[i].miniature }}"
+                                            alt="First slide"></a>
+                            </div>
+                        {% else %}
+                            <div class="carousel-item m-auto">
+                                <a href="{{ path('project_show', {'id': LovedProjects[i].id }) }}"><img
+                                            class="d-block img-fluid m-auto" src="{{ LovedProjects[i].miniature }}"
+                                            alt="slide"></a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
     <article class="projectArticle">
         <div class="d-inline-flex">
             <h2>{% trans %}Close to be financed{% endtrans %}</h2>
@@ -30,167 +71,15 @@
         </div>
         <div class="closedProjects projectContainer">
             {% for project in CloseProjects %}
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}"
-                         style="height: 12em">
-                    <div class="card-body">
-                        <div class="progress">
-                            <div class="progress-bar bg-warning" role="progressbar"
-                                 style="width: {{ (project.goal - project.rest) / project.goal * 100 }}%"
-                                 aria-valuenow="{{ (project.goal - project.rest) / project.goal * 100 }}"
-                                 aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">{{ project.goal - project.rest }} / {{ project.goal }}€</p>
-                        <div class="d-inline-flex">
-                            {% if is_granted('ROLE_USER') %}
-                                <a href="{{ path('project_show', {'id': project.id}) }}"
-                                   class="btn btn-primary">{% trans %}Read
-                                        More{% endtrans %}</a>
-                                <div class="d-inline-flex">
-                                    {% if app.user.isProjectLiked(project) %}
-                                        <i data-id="{{ project.id }}" data-up="1"
-                                           data-url="{{ path('project_unlike', {'id': project.id}) }}"
-                                           class="unup fas fa-thumbs-up  text-primary"></i>
-                                    {% else %}
-                                        <i data-id="{{ project.id }}" data-up="1"
-                                           data-url="{{ path('project_like', {'id': project.id}) }}"
-                                           class="up fas fa-thumbs-up"></i>
-                                    {% endif %}
-                                    <p class="upNB">{{ project.likep.count }}</p>
-                                </div>
-
-                                    {% if app.user.isProjectDisliked(project) %}
-                                        <i data-id="{{ project.id }}" data-up="0"
-                                           data-url="{{ path('project_undislike', {'id': project.id}) }}"
-                                           class="undown fas fa-thumbs-down text-danger"></i>
-                                    {% else %}
-                                        <i data-id="{{ project.id }}" data-up="0"
-                                           data-url="{{ path('project_dislike', {'id': project.id}) }}"
-                                           class="down fas fa-thumbs-down"></i>
-                                    {% endif %}
-
-                                    <p class="downNB">{{ project.down }}</p>
-                                {% if app.user.isProjectSubscribe(project) %}
-                                    <i data-up="2" class="unsub fas fa-bookmark text-info"
-                                       data-url="{{ path('project_unsub', {'id': project.id}) }}"></i>
-                                {% else %}
-                                    <i data-up="2" class="sub fas fa-bookmark"
-                                       data-url="{{ path('project_sub', {'id': project.id}) }}"></i>
-                                {% endif %}
-                            {% else %}
-                                <a href="{{ path('project_show', {'id': project.id}) }}"
-                                   class="btn btn-primary">{% trans %}Read
-                                        More{% endtrans %}</a>
-                                <div class="d-inline-flex">
-                                    <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
-                                                class="fas fa-thumbs-up"
-                                                onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"></i></a>
-                                    <p>{{ project.up }}</p>
-                                </div>
-                                <div class="d-inline-flex">
-                                    <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
-                                                class="fas fa-thumbs-down"></i></a>
-                                    <p onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')">{{ project.down }}</p>
-                                </div>
-                                <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
-                                            class="fas fa-bookmark"></i></a>
-                            {% endif %}
-                        </div>
-                        {% if (project.goal - project.rest) / project.goal * 100 >= 100 %}
-                            <img src="{{ asset('Resources/Logo.svg') }}" alt="pingouin" style="width: 50px">
-                        {% elseif (project.goal - project.rest) / project.goal * 100 < 50 %}
-                            <img src="{{ asset('Resources/bebe_pingouin.svg') }}" alt="pingouin" style="width: 50px">
-                        {% elseif (project.goal - project.rest) / project.goal * 100 >= 50 %}
-                            <img src="{{ asset('Resources/ado_pingouin.svg') }}" alt="pingouin" style="width: 50px">
-                        {% endif %}
-                    </div>
-                </div>
+                {{ include('project/_project_card.html.twig') }}
             {% endfor %}
         </div>
         <h2>{% trans %}Most loved projects{% endtrans %}</h2>
         <div class="lovedProjects projectContainer">
             {% for project in LovedProjects %}
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ project.miniature }}" alt="miniature of {{ project.title }}"
-                         style="height: 12em">
-                    <div class="card-body">
-                        <div class="progress">
-                            <div class="progress-bar bg-warning" role="progressbar"
-                                 style="width: {{ (project.goal - project.rest) / project.goal * 100 }}%"
-                                 aria-valuenow="{{ (project.goal - project.rest) / project.goal * 100 }}"
-                                 aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">{{ project.goal - project.rest }} / {{ project.goal }}€</p>
-                        <div class="d-inline-flex">
-                            {% if is_granted('ROLE_USER') %}
-                                <a href="{{ path('project_show', {'id': project.id}) }}"
-                                   class="btn btn-primary">{% trans %}Read
-                                        More{% endtrans %}</a>
-                                <div class="d-inline-flex">
-                                    {% if app.user.isProjectLiked(project) %}
-                                        <i data-id="{{ project.id }}" data-up="1"
-                                           data-url="{{ path('project_unlike', {'id': project.id}) }}"
-                                           class="unup fas fa-thumbs-up  text-primary"></i>
-                                    {% else %}
-                                        <i data-id="{{ project.id }}" data-up="1"
-                                           data-url="{{ path('project_like', {'id': project.id}) }}"
-                                           class="up fas fa-thumbs-up"></i>
-                                    {% endif %}
-                                    <p class="upNB">{{ project.likep.count }}</p>
-                                </div>
-
-                                <div class="d-inline-flex">
-                                    {% if app.user.isProjectDisliked(project) %}
-                                        <i data-id="{{ project.id }}" data-up="0"
-                                           data-url="{{ path('project_undislike', {'id': project.id}) }}"
-                                           class="undown fas fa-thumbs-down text-danger"></i>
-                                    {% else %}
-                                        <i data-id="{{ project.id }}" data-up="0"
-                                           data-url="{{ path('project_dislike', {'id': project.id}) }}"
-                                           class="down fas fa-thumbs-down"></i>
-                                    {% endif %}
-
-                                    <p class="downNB">{{ project.down }}</p>
-                                </div>
-                                {% if app.user.isProjectSubscribe(project) %}
-                                    <i data-up="2" class="unsub fas fa-bookmark text-info"
-                                       data-url="{{ path('project_unsub', {'id': project.id}) }}"></i>
-                                {% else %}
-                                    <i data-up="2" class="sub fas fa-bookmark"
-                                       data-url="{{ path('project_sub', {'id': project.id}) }}"></i>
-                                    <!-- TODO - Condition a faire pour changer image en fonction de la cagnotte (quand on l'aura) !-->
-                                {% endif %}
-                            {% else %}
-                                <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">Read
-                                    More</a>
-                                <div class="d-inline-flex">
-                                    <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
-                                                class="fas fa-thumbs-up"
-                                                onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"></i></a>
-                                    <p>{{ project.up }}</p>
-                                </div>
-                                <div class="d-inline-flex">
-                                    <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
-                                                class="fas fa-thumbs-down"></i></a>
-                                    <p onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')">{{ project.down }}</p>
-                                </div>
-                                <a onclick="alert('{% trans %}You need to be authenticated for make this action{% endtrans %}')"><i
-                                            class="fas fa-bookmark"></i></a>
-                            {% endif %}
-                        </div>
-                        {% if (project.goal - project.rest) / project.goal * 100 >= 100 %}
-                            <img src="{{ asset('Resources/Logo.svg') }}" alt="pingouin" style="width: 50px">
-                        {% elseif (project.goal - project.rest) / project.goal * 100 < 50 %}
-                            <img src="{{ asset('Resources/bebe_pingouin.svg') }}" alt="pingouin" style="width: 50px">
-                        {% elseif (project.goal - project.rest) / project.goal * 100 >= 50 %}
-                            <img src="{{ asset('Resources/ado_pingouin.svg') }}" alt="pingouin" style="width: 50px">
-                        {% endif %}
-                    </div>
-                </div>
-                {% endfor %}
+                {{ include('project/_project_card.html.twig') }}
+            {% endfor %}
         </div>
     </article>
 
-{% endblock %}
+    {% endblock %}

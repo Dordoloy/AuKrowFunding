@@ -26,7 +26,7 @@
             crossorigin="anonymous"></script>
 {% endblock %}
 <header>
-    <nav class="navbar navbar-expand-md navbar-light bg-faded">
+    <nav class="navbar fixed-top navbar-light bg-light navbar-expand-md">
         <a class="navbar-brand" href="{{ path('home') }}">
             <img src="{{ asset('Resources/Logo.svg') }}" style="width: 40px" alt="logo">
             AuKrowdFunding</a>
@@ -101,8 +101,10 @@
         </div>
     </nav>
 </header>
-{% block body %}
-{% endblock %}
+<article style="margin-top: 100px;">
+    {% block body %}
+    {% endblock %}
+</article>
 {% block footer %}
     <!-- Footer -->
     <footer class="page-footer font-small indigo">
@@ -146,11 +148,6 @@
 
                 <!-- Grid column -->
                 <div class="col-md-8 col-12 mt-5">
-                    <p style="line-height: 1.7rem">The purpose of this website is to help you to finance 💵 and to grow 🥚 your project.
-
-                        To do so, we offer you the possibility of creating a funding pot 💰 which can be inflated thanks to generous internauts.
-
-                        The special feature of our website can allow people to make a free donation 🤑 !</p>
                     <div class="mb-5 flex-center">
 
                         <!-- Facebook -->

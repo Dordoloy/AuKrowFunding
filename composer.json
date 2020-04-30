@@ -8,6 +8,7 @@
     "doctrine/doctrine-fixtures-bundle": "^3.3",
     "easycorp/easyadmin-bundle": "^2.3",
     "friendsofsymfony/ckeditor-bundle": "^2.2",
+    "knplabs/knp-markdown-bundle": "^1.8",
     "knpuniversity/oauth2-client-bundle": "^1.33",
     "league/oauth2-facebook": "^2.0",
     "league/oauth2-google": "^3.0",
@@ -39,7 +40,8 @@
     "symfony/validator": "5.0.*",
     "symfony/web-link": "5.0.*",
     "symfony/webpack-encore-bundle": "^1.7",
-    "symfony/yaml": "5.0.*"
+    "symfony/yaml": "5.0.*",
+    "twig/intl-extra": "^3.0"
   },
   "require-dev": {
     "symfony/debug-pack": "*",

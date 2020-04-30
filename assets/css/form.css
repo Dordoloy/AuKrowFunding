@@ -16,3 +16,15 @@ form {
     margin-left: 20px;
     color: white;
 }
+
+#comment_Message {
+    display: flex;
+    width: 100%;
+}
+
+.btn {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    margin: 5px;
+}
