@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}About us{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}About us{% endtrans %}</h1>
+
+    <div class="about">
+
+        <h2>{% trans %}The AuKrowdFunding team{% endtrans %}</h2>
+
+        <h3>{% trans %}One team for one objective : the success of your projects.{% endtrans %}</h3>
+
+        <p>{% trans %}We are web development students at the Université Savoie Mont Blanc in France.{% endtrans %}</p>
+        <ul>
+            <li><name>Anthony CHAUSSIN : </name>{% trans %}Back development{% endtrans %}</li>
+            <li><name>Yohan DORDOLO : </name>{% trans %}Front and graphic design {% endtrans %}</li>
+            <li><name>Camille CHAULAIC : </name>{% trans %}Front design{% endtrans %}</li>
+        </ul>
+    </div>
+
+    <a href="{{ path('home') }}" class="btn-primary btn-lg">{% trans %}back to home page{% endtrans %}</a>
+{% endblock %}

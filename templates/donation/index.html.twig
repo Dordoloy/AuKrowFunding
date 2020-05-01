@@ -21,8 +21,8 @@
                 <td>{{ donation.Amount }}</td>
                 <td>{{ donation.DateTime ? donation.DateTime|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('donation_show', {'id': donation.id}) }}">show</a>
-                    <a href="{{ path('donation_edit', {'id': donation.id}) }}">edit</a>
+                    <a href="{{ path('donation_show', {'id': donation.id}) }}" class="btn btn-primary">show</a>
+                    <a href="{{ path('donation_edit', {'id': donation.id}) }}" class="btn btn-primary">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('donation_new') }}">Create new</a>
+    <a href="{{ path('donation_new') }}" class="btn btn-primary">Create new</a>
 {% endblock %}

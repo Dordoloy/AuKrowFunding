@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DonationRepository")
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(columns={"user_id", "project_parent_id", "date_time"})})
  */
 class Donation
 {
@@ -96,6 +98,6 @@ class Donation
 
     public function __toString()
     {
-        return $this->getAmount() . "";
+        return "";
     }
 }

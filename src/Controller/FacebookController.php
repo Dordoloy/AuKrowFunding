@@ -23,7 +23,7 @@ class FacebookController extends AbstractController
     {
         return $clientRegistry
             ->getClient('facebook_main') // key used in config/packages/knpu_oauth2_client.yaml
-            ->redirect(['public_profile', 'email'], null);
+            ->redirect(['public_profile', 'email'], []);
     }
 
     /**

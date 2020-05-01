@@ -88,7 +88,7 @@ class FacebookAuthenticator extends SocialAuthenticator
 
         // 2) do we have a matching user by email?
         $user = $this->em->getRepository(User::class)
-            ->findOneBy(['email' => $email]);
+            ->findOneBy(['Email' => $email]);
 
         // 3) Maybe you just want to "register" them by creating
         // a User object

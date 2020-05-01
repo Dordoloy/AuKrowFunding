@@ -10,6 +10,15 @@
         "/build/vendors~app.css",
         "/build/app.css"
       ]
+    },
+    "login": {
+      "js": [
+        "/build/runtime.js",
+        "/build/login.js"
+      ],
+      "css": [
+        "/build/login.css"
+      ]
     }
   }
 }

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Project;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProjectRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,18 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryController extends AbstractController
 {
-    /**
-     * @Route("/", name="category_index", methods={"GET"})
-     * @param CategoryRepository $categoryRepository
-     * @return Response
-     */
-    public function index(CategoryRepository $categoryRepository): Response
-    {
-        return $this->render('category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
-        ]);
-    }
-
     /**
      * @Route("/new", name="category_new", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
@@ -56,13 +46,19 @@ class CategoryController extends AbstractController
 
     /**
      * @Route("/{id}", name="category_show", methods={"GET"})
+     * @param CategoryRepository $categoryRepository
+     * @param ProjectRepository $projectRepository
      * @param Category $category
      * @return Response
      */
-    public function show(Category $category): Response
+    public function show(CategoryRepository $categoryRepository, ProjectRepository $projectRepository, Category $category): Response
     {
         return $this->render('category/show.html.twig', [
-            'category' => $category,
+            'Category' => $categoryRepository->findAll(),
+            'CategorySelected' => $category,
+            'Projects' => array_filter($projectRepository->findAll(), function (Project $project) use ($category) {
+                return $project->getCategories()->contains($category);
+            })
         ]);
     }
 

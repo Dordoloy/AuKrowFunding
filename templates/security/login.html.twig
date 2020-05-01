@@ -1,44 +1,69 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{% trans %}Log in!{% endtrans %}{% endblock %}
+    {% block stylesheets %}
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
 
+        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_link_tags('login') }}
+    {% endblock %}
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <div class="container" style="margin-top: 150px;">
+        <div class="d-flex justify-content-center h-100">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                {% trans %}You are logged in as{% endtrans %} {{ app.user.username }}, <a
-                        href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
-            </div>
-        {% endif %}
-
-        <h1 class="h3 mb-3 font-weight-normal">{% trans %}Please sign in{% endtrans %}</h1>
-        <label for="inputUsername">{% trans %}Username{% endtrans %}</label>
-        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required
-               autofocus>
-        <label for="inputPassword">{% trans %}Password{% endtrans %}</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" required>
-
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
-
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
-
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" name="_remember_me"> Remember me
-                </label>
-            </div>
-        #}
-
-        <button class="btn signinAndRegisterButton" type="submit">
-            {% trans %}Sign in{% endtrans %}
-        </button>
-    </form>
+            {% if app.user %}
+                <div class="mb-3">
+                    {% trans %}You are logged in as{% endtrans %} {{ app.user.username }}, <a
+                            href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
+                </div>
+            {% else %}
+                <div class="card">
+                    <form method="post">
+                        <div class="card-header">
+                            <h1 class="h3 mb-3 font-weight-normal">{% trans %}Please sign in{% endtrans %}</h1>
+                            <div class="d-flex justify-content-end social_icon">
+                                <a href="{{ path('connect_facebook_start') }}"><span><i
+                                                class="fab fa-facebook-square"></i></span></a>
+                                <a href="{{ path('connect_google_start') }}"><span><i
+                                                class="fab fa-google-plus-square"></i></span></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input name="username" type="text" class="form-control"
+                                       placeholder="{% trans %}Username{% endtrans %}" value="{{ last_username }}">
+                            </div>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input name="password" type="password" class="form-control"
+                                       placeholder="{% trans %}Password{% endtrans %}">
+                            </div>
+                            <div class="input-group form-group">
+                                <input type="submit" value="{% trans %}Sign in{% endtrans %}"
+                                       class="btn float-right login_btn">
+                            </div>
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}"
+                            >
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-center">
+                                <p>{% trans %}Don't have an account?{% endtrans %}</p><a
+                                        href="{{ path('register') }}">{% trans %}Sign Up{% endtrans %}</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

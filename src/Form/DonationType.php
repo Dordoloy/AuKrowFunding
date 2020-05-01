@@ -13,9 +13,7 @@ class DonationType extends AbstractType
     {
         $builder
             ->add('Amount')
-            ->add('DateTime')
-            ->add('user')
-            ->add('Project');
+            ->add('ProjectParent');
     }
 
     public function configureOptions(OptionsResolver $resolver)

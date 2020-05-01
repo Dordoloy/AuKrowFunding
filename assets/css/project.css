@@ -1,18 +1,4 @@
 /*EXPLORE*/
-.navCategories {
-    color: white;
-    border-bottom: rgba(0,0,0,0) 3px solid;
-    transition: all ease 0.5s;
-}
-
-.navCategories:hover {
-    border-bottom: rgba(0,123,255,1) 3px solid;
-}
-
-.nav-link {
-    color: white;
-}
-
 .projectArticle {
     margin: 20px;
 }
@@ -31,10 +17,6 @@
     color: rgb(0,123,255);
 }
 
-svg {
-    cursor: pointer;
-}
-
 /*FORM*/
 #saveNewProjectButton {
     background-color: #3875d7;
@@ -49,10 +31,8 @@ svg {
 }
 
 .backToList {
-    background-color: #3875d7 !important;
     color: white !important;
     width: 7em;
-    margin-top: -6.6em;
     margin-left: 7em;
 }
 
@@ -60,7 +40,9 @@ svg {
     background-color: red !important;
     color: white !important;
     width: 7em;
-    margin-top: -12.1em;
     margin-left: 14.5em;
 }
 
+.card-body {
+    padding: 1.25rem 1.25rem 0px 1.25rem;
+}

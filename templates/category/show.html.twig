@@ -3,24 +3,25 @@
 {% block title %}{% trans %}Category{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Category{% endtrans %}</h1>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ category.id }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Name{% endtrans %}</th>
-            <td>{{ category.Name }}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="d-inline-flex m-3">
+                    <h1>{{ CategorySelected }}</h1>
+                    <a href="{{ path('donation_new') }}"
+                       class="btn btn-bg-secondary ml-3">{% trans %}Donate{% endtrans %}</a>
+                </div>
+                <article class="projectArticle">
+                    <div class="closedProjects projectContainer">
+                        {% for project in Projects %}
+                            {{ include('project/_project_card.html.twig') }}
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+            {{ include('category/_list_cat.html.twig') }}
+        </div>
+    </div>
 
-    <a href="{{ path('category_index') }}">{% trans %}back to list{% endtrans %}</a>
-
-    <a href="{{ path('category_edit', {'id': category.id}) }}">{% trans %}edit{% endtrans %}</a>
-
-    {{ include('category/_delete_form.html.twig') }}
 {% endblock %}

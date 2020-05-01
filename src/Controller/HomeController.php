@@ -31,4 +31,12 @@ class HomeController extends AbstractController
             'Status' => $registry->getRepository(Status::class)->findAll()
         ]);
     }
+
+    /**
+     * @Route("/about", name="about")
+     * @return Response
+     */
+    public function about():Response{
+        return $this->render('home/about.html.twig');
+    }
 }

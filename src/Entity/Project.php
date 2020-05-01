@@ -6,9 +6,11 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(columns={"title"})})
  */
 class Project
 {
@@ -61,10 +63,7 @@ class Project
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Project", orphanRemoval=true)
      */
     private $comments;
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="Project")
-     */
-    private $categories;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -75,8 +74,6 @@ class Project
      * @ORM\OneToMany(targetEntity="App\Entity\Reward", mappedBy="Project", orphanRemoval=true)
      */
     private $rewards;
-
-    private $rest;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserProjectLike", mappedBy="projectliked", orphanRemoval=true, cascade={"persist"})
@@ -92,8 +89,12 @@ class Project
      * @ORM\OneToMany(targetEntity="App\Entity\UserProjectSubscription", mappedBy="project", orphanRemoval=true, cascade={"persist"})
      */
     private $userProjectSubscriptions;
-    //endregion
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="projects")
+     */
+    private $categories;
+    //endregion
 
     //region --------------- Properties
     /**
@@ -252,6 +253,32 @@ class Project
     }
 
     /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Status|null
      */
     public function getStatu(): ?Status
@@ -314,7 +341,11 @@ class Project
      */
     public function getComments(): Collection
     {
-        return $this->comments;
+        $comments = $this->comments->toArray();
+        usort($comments, function (Comment $comment1, Comment $comment2) {
+            return $comment1->getDateTile() < $comment2->getDateTile();
+        });
+        return new ArrayCollection($comments);
     }
 
     /**
@@ -346,50 +377,6 @@ class Project
         }
 
         return $this;
-    }
-
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    /**
-     * @param Category $category
-     * @return $this
-     */
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->addProject($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Category $category
-     * @return $this
-     */
-    public function removeCategory(Category $category): self
-    {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
-            $category->removeProject($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function __toString()
-    {
-        return $this->getDescription();
     }
 
     /**
@@ -501,9 +488,10 @@ class Project
     public function getRest(): float
     {
         $total = 0;
-        foreach ($this->donations as $don) {
+        foreach ($this->getDonations() as $don) {
             $total += $don->getAmount();
         }
+        $rest = $this->getGoal() - $total;
         return $this->getGoal() - $total;
     }
 
@@ -692,4 +680,13 @@ class Project
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
 }

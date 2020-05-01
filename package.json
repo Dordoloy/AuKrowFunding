@@ -19,6 +19,7 @@
     "webpack-notifier": "1.6.0"
   },
   "dependencies": {
+    "ckeditor": "^4.0.0",
     "font-awesome": "^4.7.0"
   }
 }

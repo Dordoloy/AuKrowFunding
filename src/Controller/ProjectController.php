@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Project;
 use App\Entity\Subscription;
 use App\Entity\User;
+use App\Form\CommentType;
 use App\Form\ProjectType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\StatusRepository;
+use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,9 +57,6 @@ class ProjectController extends AbstractController
             $project->setUser($this->getUser());
             $project->setStatu($statusRepository->findAll()[0]);
             $project->setReport(0);
-            $project->setUp(0);
-            $project->setDown(0);
-            $project->setStatu($statusRepository->find(0));
             $entityManager->persist($project);
             $entityManager->flush();
             return $this->redirectToRoute('project_index');
@@ -69,14 +69,32 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_show", methods={"GET"})
+     * @Route("/{id}", name="project_show", methods={"GET", "POST"})
      * @param Project $project
+     * @param Request $request
      * @return Response
      */
-    public function show(Project $project): Response
+    public function show(Project $project, Request $request): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        $comment->setUser($this->getUser())
+            ->setUp(0)
+            ->setProject($project)
+            ->setDown(0)
+            ->setDateTile(new DateTime('NOW'));
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            return $this->redirectToRoute('project_show', ['id' => $project->getId()]);
+        }
         return $this->render('project/show.html.twig', [
             'project' => $project,
+            'comment' => $comment,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -148,9 +166,7 @@ class ProjectController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -166,9 +182,7 @@ class ProjectController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -186,9 +200,7 @@ class ProjectController extends AbstractController
         $entityManager->persist($user);
         $entityManager->persist($project);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -205,9 +217,7 @@ class ProjectController extends AbstractController
         $entityManager->persist($user);
         $entityManager->persist($project);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -221,9 +231,7 @@ class ProjectController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($project);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -237,8 +245,6 @@ class ProjectController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($project);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 }

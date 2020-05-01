@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserProjectDislikeRepository")
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(columns={"user_id", "project_id"})})
  */
 class UserProjectDislike
 {
@@ -55,5 +57,10 @@ class UserProjectDislike
         $this->project = $project;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getProject() . $this->getUser();
     }
 }

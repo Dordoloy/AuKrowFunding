@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Project;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -23,8 +25,8 @@ class ProjectType extends AbstractType
             ->add('LimitDate', DateType::class, [
                 'widget' => 'choice',
                 'years' => range(date('Y'), date('Y') + 10),
-                'months' => range(date('m'), 12),
-                'days' => range(date('d'), 31),
+                'months' => range(0, 12),
+                'days' => range(0, 31),
                 'required' => true,
             ])
             ->add('Description', CKEditorType::class, [
@@ -32,7 +34,9 @@ class ProjectType extends AbstractType
             ])
             ->add('Miniature', TextType::class, [
                 'required' => true
-            ]);
+            ])
+            ->add('categories', EntityType::class, ['class' => Category::class, 'multiple' => true,
+                'expanded' => true,]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

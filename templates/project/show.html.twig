@@ -3,48 +3,127 @@
 {% block title %}{% trans %}Project{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1 style="color: rgb(0,123,255);">{{ project.title }}</h1>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ project.id }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Goal{% endtrans %}</th>
-            <td>{{ project.Goal }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}LimitDate{% endtrans %}</th>
-            <td>{{ project.LimitDate ? project.LimitDate|date('Y-m-d') : '' }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Report{% endtrans %}</th>
-            <td>{{ project.Report }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Up{% endtrans %}</th>
-             <i data-up="2" class="sub fas fa-thumbs-up"></i></th>
-            <td>{{ project.likep.count }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Down{% endtrans %}
-                <i data-up="2" class="sub fas fa-thumbs-down"></i></th>
-            <td>{{ project.down }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Description{% endtrans %}</th>
-            <td>{% autoescape %}{{ project.Description|raw }}{% endautoescape %}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Miniature{% endtrans %}</th>
-            <td><img src="{{ project.Miniature }}"/></td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- Page Content -->
+    <div class="container-fluid">
 
-    <a href="{{ path('project_edit', {'id': project.id}) }}" id="editProject" class="btn">{% trans %}edit{% endtrans %}</a>
-    <a href="{{ path('project_index') }}" class="btn backToList" style="margin-top: 0; margin-left: 0.5em">{% trans %}back to list{% endtrans %}</a>
+        <div class="row">
+            <!-- Post Content Column -->
+            <div class="col-lg-6">
+                <!-- Title -->
+                <h1 class="mt-4">{{ project.title }}</h1>
+                <!-- Author -->
+                <p class="lead">
+                    {% trans %}by{% endtrans %}
+                    <a href="{{ path('user_show', {'id' : project.user.id}) }}">{{ project.user }}</a>
+                </p>
+                <hr>
+                <!-- Date/Time -->
+                <p>{% trans %}Funding limit{% endtrans %}
+                    : {{ project.limitDate|format_datetime('short', 'none', locale=app.request.locale) }}</p>
+                <hr>
+                <!-- Preview Image -->
+                <div>
+                    <img class="img-fluid rounded w-100" src="{{ project.miniature }}" alt="project miniature">
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-warning" role="progressbar"
+                             style="width: {{ (project.goal - project.rest) / project.goal * 100 }}%"
+                             aria-valuenow="{{ (project.goal - project.rest) / project.goal * 100 }}"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    {% if  (project.goal - project.rest) / project.goal  >= 1 %}
+                        <h2 class="text-success text-center">{% trans %}100% FUNDED !{% endtrans %}</h2>
+                    {% endif %}
+                </div>
+                <hr>
+
+                <!-- Post Content -->
+                <p class="mr-3">
+                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#collapseExample" role="button"
+                       aria-expanded="false" aria-controls="collapseExample">
+                        {% trans %}Description{% endtrans %} <i class="fas fa-arrow-circle-down"></i>
+                    </a>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body d-inline-block">
+                        <p class="lead">{{ project.description|raw }}</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Comments Form -->
+                <div class="card my-4">
+                    <h5 class="card-header">{% trans %}Leave a Comment{% endtrans %}:</h5>
+                    <div class="card-body d-flex">
+                        {{ include('comment/_form.html.twig') }}
+                    </div>
+                </div>
+
+                {% for comment in project.comments %}
+                    <div class="media mb-4">
+                        <img class="d-flex mr-3 rounded-circle" width="50px" height="50px"
+                             src="{{ asset('Resources/Logo.svg') }}" alt="">
+                        <div class="media-body bg-light p-3">
+                            <div class="d-inline-flex">
+                                <h5 class="mt-0 mr-3">{{ comment.user }}</h5>
+                                <h6>{{ comment.dateTile|format_datetime( locale=app.request.locale) }}</h6>
+                            </div>
+                            <hr>
+                            {{ comment.message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">{% trans %}Categories of project{% endtrans %}</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    {% for cat in project.categories %}
+                                        <li>
+                                            <a href="{{ path('category_show', {'id': cat.id}) }}">{{ cat }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Side Widget -->
+                <!-- état du financement -->
+                <div class="card my-4">
+                    <h5 class="card-header">{% trans %}Funding advancement{% endtrans %}</h5>
+                    <div class="card-body">
+                        <p class="card-text">{% trans %}This project is{% endtrans %} {{ project.statu }}</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                 style="width: {{ (project.goal - project.rest) / project.goal * 100 }}%"
+                                 aria-valuenow="{{ (project.goal - project.rest) / project.goal * 100 }}"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="card-text">{{ (project.goal - project.rest)|number_format(2, ',', ' ') }}
+                            / {{ project.goal|number_format(2, ',', ' ') }} €</p>
+                        <p class="card-text">{% trans %}This project need{% endtrans %} {{ project.rest|number_format(2, ',', ' ') }}
+                            € {% trans %}before{% endtrans %} {{ project.limitDate|format_datetime(locale=app.request.locale) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% if project.user == app.user %}
+        <a href="{{ path('project_edit', {'id': project.id}) }}"
+           class="btn btn-primary">{% trans %}edit{% endtrans %}</a>
+    {% endif %}
+    <a href="{{ path('project_index') }}" class="btn btn-primary"
+       style="margin-left: 0.5em">{% trans %}back to list{% endtrans %}</a>
 
 {% endblock %}
