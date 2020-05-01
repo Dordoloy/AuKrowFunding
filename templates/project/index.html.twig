@@ -6,12 +6,14 @@
 <nav class="navbar navbar-light bg-primary sticky-top mt-5 border-bottom">
     <div class="collapse navbar-collapse" id="navbarCategory">
         <ul class="navbar-nav w-100">
-            {% for category in Category %}
-                <li class="nav-item ">
+            <li class="nav-item ">
                     <a class="nav-link"
-                       href="{{ path('category_show', {'id':category.id}) }}">{{ category.Name }}</a>
-                </li>
-            {% endfor %}
+                       href="{{ path('project_index') }}">All</a>
+                    {% for category in Category %}
+                            <a class="nav-link"
+                               href="{{ path('category_show', {'id':category.id}) }}">{{ category.Name }}</a>
+                    {% endfor %}
+            </li>
         </ul>
     </div>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
