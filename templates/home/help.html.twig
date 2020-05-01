@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AuKrowFunding - Help !{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <br/>
+        <br/>
+        <br/>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+            {% trans %}This section contains a wealth of information, related to{% endtrans %}
+            <strong>AuKrowFunding</strong>. {% trans %}If you cannot find an answer to your question,
+                make sure to contact us.{% endtrans %}
+        </div>
+        <br/>
+        <div class="" id="accordion">
+            <div class="faqHeader">{% trans %}General questions{% endtrans %}</div>
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-header">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseOne">{% trans %}Is account registration required?{% endtrans %}</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="card-block p-3">
+                        {% trans %}You do not need to be logged in to navigate on {% endtrans %}
+                        <strong>AuKrowFunding</strong>. {% trans %}But if you want to create a project or support it you would have to create an account in the{% endtrans %}
+                        <a href="{{ path('register') }}">{% trans %}connection area{% endtrans %}</a>.
+                    </div>
+                </div>
+            </div>
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-header">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseTen">{% trans %}Can I submit my own Project?{% endtrans %}</a>
+                    </h4>
+                </div>
+                <div id="collapseTen" class="panel-collapse collapse">
+                    <div class="card-block p-3">
+                        {% trans %}YES ! You just have to connect and click on{% endtrans %} <a
+                                href="{{ path('project_new') }}">"{% trans %}Create a new project{% endtrans %}"</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-header">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseEleven">{% trans %}What is the currency used for all transactions?{% endtrans %}</a>
+                    </h4>
+                </div>
+                <div id="collapseEleven" class="panel-collapse collapse">
+                    <div class="card-block p-3">
+                        {% trans %}Today all transactions are false. While waiting for a reliable transaction system, we suggest you make a false donation to show your interest towards your favorite projects.{% endtrans %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="faqHeader">{% trans %}Project{% endtrans %}</div>
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-header">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseTwo">{% trans %}Who can make a project?{% endtrans %}</a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="card-block p-3">
+                        {% trans %}Only an inspiring, motivating and creative user can propose an innovative idea to finance. But everyone can propose their project, even you Billy.{% endtrans %}
+                    </div>
+                </div>
+            </div>
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-header">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseThree">{% trans %}I want to crowdfund my project - what are the steps?{% endtrans %}</a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="card-block p-3">
+                        {% trans %}The steps involved in this process are really simple. All you need to do is:{% endtrans %}
+                        <ul>
+                            <li>{% trans %}Register an account{% endtrans %}</li>
+                            <li>{% trans %}Define e beautiful description of your project{% endtrans %}</li>
+                            <li>{% trans %}Go to the{% endtrans %} <a href="{{ path('project_new') }}"><strong>Create
+                                        new
+                                        project</strong></a> {% trans %}section and define your limite date and goal and past your description in our powerful text editor{% endtrans %}
+                            </li>
+                            <li>{% trans %}The next step is wait to being financed and share your project.{% endtrans %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-header">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseSix">{% trans %}Why crowdfund my project here?{% endtrans %}</a>
+                    </h4>
+                </div>
+                <div id="collapseSix" class="panel-collapse collapse">
+                    <div class="card-block p-3">
+                        {% trans %}There are a number of reasons why you should join us:{% endtrans %}
+                        <ul>
+                            <li>{% trans %}A great community for help you to make your project grow up.{% endtrans %}</li>
+                            <li>{% trans %}Fast response/approval project. Many sites take weeks to process a new project. And if it gets rejected, there is another iteration. We have aliminated this, and made the process very fast. It only takes up to 5 minutes for a project to get reviewed.{% endtrans %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-header">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseNine">{% trans %}When do I get paid?{% endtrans %}</a>
+                    </h4>
+                </div>
+                <div id="collapseNine" class="panel-collapse collapse">
+                    <div class="card-block p-3">
+                        {% trans %}Your kitty will be paid to you if your project is funded before its deadline. The money will be paid as soon as 100% of funding is reached.{% endtrans %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="faqHeader">{% trans %}Crowdfunders{% endtrans %}</div>
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-header">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseFour">{% trans %}I want to donate to a project - what are the steps?{% endtrans %}</a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="card-block p-3">
+                        {% trans %}Donnate to a project on {% endtrans %}
+                        <strong>AuKrowFunding</strong>{% trans %} is really simple.{% endtrans %}
+                        {% trans %}Once you have selected a project, juste write the amount of fake donation and click on save button.{% endtrans %}
+                        <br/>
+                        {% trans %}Once the save is complete, you redirect to project view.{% endtrans %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
