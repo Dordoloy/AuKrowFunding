@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Project;
 use App\Entity\Status;
 use App\Entity\Tag;
+use App\Form\ContactType;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,5 +42,14 @@ class HomeController extends AbstractController
         return $this->render('home/help.html.twig');
     }
 
-
+    /**
+     * @Route("/contact", name="contact")
+     * @return Response
+     */
+    public function contact():Response{
+        $form = $this->createForm(ContactType::class);
+        return $this->render('home/contact.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }

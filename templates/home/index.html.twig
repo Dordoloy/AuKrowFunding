@@ -10,7 +10,7 @@
                 <div class="col-lg-12">
                     <h1 class="display-4 text-white mt-5 mb-2">{% trans %}Welcome on{% endtrans %} AuKrowFunding ! <img
                                 src="{{ asset('Resources/Logo.svg') }}" style="width: 1em;" alt="icon"/></h1>
-                    <p class="lead mb-5 text-white">{% trans %}Make your project grow to the end with our help{% endtrans %}</p>
+                    <p id="about"  class="lead mb-5 text-white">{% trans %}Make your project grow to the end with our help{% endtrans %}</p>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
     <!-- Page Content -->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 mb-5">
+            <div class="col-md-4 mb-5">
                 <h2>{% trans %}What We Do{% endtrans %}</h2>
                 <hr>
                 <p>{% trans %}The purpose of this website is to help you to finance and to grow your project.{% endtrans %}</p>
@@ -30,7 +30,20 @@
                    href="{{ path('project_new') }}">{% trans %}Create a project{% endtrans %}
                     &raquo;</a>
             </div>
-            <div class="col-md-4 mb-5">
+            <div class="col-md-5 mb-5">
+                <h2>{% trans %}How it's work ?{% endtrans %}</h2>
+                <hr>
+                <p>{% trans %}To see and make a donation, you just have to click on a projet.{% endtrans %}</p>
+                <p>{% trans %}You can share projects that you want to see it grow on social media as soon as you arrived on the website.{% endtrans %}</p>
+                <p>{% trans %}If you want to propose your project or if you want to subscribe to a project to follow its evolution, you will need to create a account. But don't worry, it doesn't take more than a minute!{% endtrans %}</p>
+                <p>- {% trans %}On projects the image of the baby auk{% endtrans %} <img
+                            src="{{ asset('Resources/bebe_pingouin.svg') }}" style="width: 1em;" alt="icon"/> {% trans %}means that the project is funded at less than 50%{% endtrans %}</p>
+                <p>- {% trans %}the adolescent one{% endtrans %} <img
+                            src="{{ asset('Resources/ado_pingouin.svg') }}" style="width: 1em;" alt="icon"/> {% trans %}means that the project is funded at more than 50%{% endtrans %}</p>
+                <p>- {% trans %}the adult one{% endtrans %}  <img
+                            src="{{ asset('Resources/Logo.svg') }}" style="width: 1em;" alt="icon"/> {% trans %}means that the project is totally funded{% endtrans %}</p>
+            </div>
+            <div class="col-md-3 mb-5">
                 <h2>{% trans %}Contact Us{% endtrans %}</h2>
                 <hr>
                 <address>
@@ -39,11 +52,8 @@
                     <br>74100 Annecy le Vieux, France
                 </address>
                 <address>
-                    <p>P:</p>
-                    (123) 456-7890
-                    <br>
-                    <p>E:</p>
-                    <a href="mailto:#">contact@aukrowfunding.com</a>
+                    <p>Phone: (123) 456-7890</p>
+                    <p>Email: <a href="mailto:#">contact@aukrowfunding.com</a></p>
                 </address>
             </div>
         </div>

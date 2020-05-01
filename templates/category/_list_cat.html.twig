@@ -7,10 +7,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <ul class="list-unstyled mb-0">
+                            <a href="{{ path('project_index') }}">All</a>
                         {% for cat in Category %}
-                            <li>
+                        <li>
                                 <a href="{{ path('category_show', {'id': cat.id}) }}">{{ cat }}</a>
-                            </li>
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>
