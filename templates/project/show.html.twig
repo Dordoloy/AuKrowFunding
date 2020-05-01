@@ -8,27 +8,20 @@
     <div class="container-fluid">
 
         <div class="row">
-
             <!-- Post Content Column -->
-            <div class="col-lg-8">
-
+            <div class="col-lg-6">
                 <!-- Title -->
                 <h1 class="mt-4">{{ project.title }}</h1>
-
                 <!-- Author -->
                 <p class="lead">
                     {% trans %}by{% endtrans %}
                     <a href="{{ path('user_show', {'id' : project.user.id}) }}">{{ project.user }}</a>
                 </p>
-
                 <hr>
-
                 <!-- Date/Time -->
                 <p>{% trans %}Funding limit{% endtrans %}
                     : {{ project.limitDate|format_datetime('short', 'none', locale=app.request.locale) }}</p>
-
                 <hr>
-
                 <!-- Preview Image -->
                 <div>
                     <img class="img-fluid rounded w-100" src="{{ project.miniature }}" alt="project miniature">
@@ -103,7 +96,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Side Widget -->
                 <!-- état du financement -->
                 <div class="card my-4">
@@ -122,13 +114,9 @@
                             € {% trans %}before{% endtrans %} {{ project.limitDate|format_datetime(locale=app.request.locale) }}</p>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 
 
     {% if project.user == app.user %}

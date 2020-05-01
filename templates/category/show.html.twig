@@ -3,36 +3,25 @@
 {% block title %}{% trans %}Category{% endtrans %}{% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-light bg-primary sticky-top mt-5 border-bottom">
-        <div class="collapse navbar-collapse" id="navbarCategory">
-            <ul class="navbar-nav w-100">
-                <li class="nav-item ">
-                    <a class="nav-link"
-                       href="{{ path('project_index') }}">All</a>
-                {% for category in categories %}
-                        <a class="nav-link"
-                           href="{{ path('category_show', {'id':category.id}) }}">{{ category.Name }}</a>
-                {% endfor %}
-                </li>
-            </ul>
-        </div>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarCategory" aria-controls="navbarCategory" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
 
-    <div class="d-inline-flex m-3">
-        <h1>{{ CategorySelected }}</h1>
-        <a href="{{ path('donation_new') }}" class="btn btn-bg-secondary ml-3">{% trans %}Donate{% endtrans %}</a>
-    </div>
-    <article class="projectArticle">
-        <div class="closedProjects projectContainer">
-            {% for project in Projects %}
-                {{ include('project/_project_card.html.twig') }}
-            {% endfor %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="d-inline-flex m-3">
+                    <h1>{{ CategorySelected }}</h1>
+                    <a href="{{ path('donation_new') }}"
+                       class="btn btn-bg-secondary ml-3">{% trans %}Donate{% endtrans %}</a>
+                </div>
+                <article class="projectArticle">
+                    <div class="closedProjects projectContainer">
+                        {% for project in Projects %}
+                            {{ include('project/_project_card.html.twig') }}
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+            {{ include('category/_list_cat.html.twig') }}
         </div>
-    </article>
+    </div>
 
 {% endblock %}
