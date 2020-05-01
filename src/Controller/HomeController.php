@@ -51,5 +51,11 @@ class HomeController extends AbstractController
         return $this->render('home/contact.html.twig', [
             'form' => $form->createView()
         ]);
+	/**
+     * @Route("/about", name="about")
+     * @return Response
+     */
+    public function about():Response{
+        return $this->render('home/about.html.twig');
     }
 }

@@ -61,3 +61,30 @@ i {
     position: sticky;
     top: 100px;
 }
+
+.about {
+    margin: 20px;
+    font-size: 18px;
+}
+
+.about h2 {
+    margin-bottom: 20px;
+    font-size: 40px;
+}
+
+.about h3 {
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+
+.about ul {
+    list-style-type:none;
+}
+
+.about li {
+    margin-bottom: 10px;
+}
+
+.about name {
+    font-weight: bold;
+}
