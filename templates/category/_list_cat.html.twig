@@ -1,0 +1,20 @@
+<div class="col-md-3 ml-auto sticky-top h-100" style="z-index: 1;">
+
+    <!-- Categories Widget -->
+    <div class="card my-4">
+        <h5 class="card-header">{% trans %}Categories{% endtrans %}</h5>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <ul class="list-unstyled mb-0">
+                        {% for cat in Category %}
+                            <li>
+                                <a href="{{ path('category_show', {'id': cat.id}) }}">{{ cat }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 {
   "name": "aukrowfundind/project",
-    "description": "All required packages for AuKrowFunding web site",
+  "description": "All required packages for AuKrowFunding web site",
   "type": "project",
   "license": "MIT",
   "minimum-stability": "stable",
