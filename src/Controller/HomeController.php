@@ -46,11 +46,13 @@ class HomeController extends AbstractController
      * @Route("/contact", name="contact")
      * @return Response
      */
-    public function contact():Response{
+    public function contact():Response
+    {
         $form = $this->createForm(ContactType::class);
         return $this->render('home/contact.html.twig', [
             'form' => $form->createView()
         ]);
+    }
 	/**
      * @Route("/about", name="about")
      * @return Response
