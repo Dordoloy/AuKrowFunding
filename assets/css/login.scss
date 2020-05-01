@@ -1,0 +1,63 @@
+.container {
+  height: 100%;
+  align-content: center;
+}
+
+.card {
+  height: 370px;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 400px;
+}
+
+.social_icon span {
+  font-size: 60px;
+  margin-left: 10px;
+  color: #FFC312;
+}
+
+.social_icon span:hover {
+  color: cornflowerblue;
+  cursor: pointer;
+}
+
+.card-header h3 {
+  color: white;
+}
+
+.social_icon {
+  position: absolute;
+  right: 20px;
+  top: 0px !important;
+}
+
+.input-group-prepend span {
+  width: 50px;
+  background-color: #FFC312;
+  color: black;
+  border: 0 !important;
+}
+
+input:focus {
+  box-shadow: 0 0 0 0 !important;
+
+}
+
+.login_btn {
+  color: black;
+  background-color: #FFC312;
+  width: 100px;
+}
+
+.login_btn:hover {
+  color: black;
+  background-color: cornflowerblue !important;
+}
+
+.links {
+  color: white;
+}
+
+.links a {
+  margin-left: 4px;
+}

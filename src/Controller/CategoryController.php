@@ -54,7 +54,7 @@ class CategoryController extends AbstractController
     public function show(CategoryRepository $categoryRepository, ProjectRepository $projectRepository, Category $category): Response
     {
         return $this->render('category/show.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'Category' => $categoryRepository->findAll(),
             'CategorySelected' => $category,
             'Projects' => array_filter($projectRepository->findAll(), function (Project $project) use ($category) {
                 return $project->getCategories()->contains($category);

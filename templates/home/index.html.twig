@@ -38,21 +38,20 @@
                     <br>2 rue arc-en-ciel
                     <br>74100 Annecy le Vieux, France
                 </address>
-            <address>
-                <abbr title="Phone">P:</abbr>
-                (123) 456-7890
-                <br>
-                <abbr title="Email">E:</abbr>
-                <a href="mailto:#">contact@aukrowfunding.com</a>
-            </address>
+                <address>
+                    <p>P:</p>
+                    (123) 456-7890
+                    <br>
+                    <p>E:</p>
+                    <a href="mailto:#">contact@aukrowfunding.com</a>
+                </address>
+            </div>
         </div>
-    </div>
-    <!-- /.row -->
-
-    <article>
-        <div id="carouselExampleControls" class="carousel slide p-4" data-ride="carousel">
-            <div class="carousel-inner">
-                {% for category in Category %}
+        <!-- /.row -->
+        <article>
+            <div id="carouselExampleControls" class="carousel slide p-4" data-ride="carousel">
+                <div class="carousel-inner">
+                    {% for category in Category %}
                     {% if loop.first %}
                         <div class="carousel-item active text-center">
                             <a href="#{{ category.Name }}">{{ category.Name }}</a>
@@ -64,33 +63,40 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <a class="carousel-control-prev text-dark" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="" aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
-                <span class="sr-only">{% trans %}Previous{% endtrans %}</span>
-            </a>
-            <a class="carousel-control-next text-dark" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
-                <span class="sr-only">{% trans %}Next{% endtrans %}</span>
-            </a>
-        </div>
-    </article>
-    <article>
-        {% for category in Category %}
-            {% if category.projects|length > 0 %}
-                <hr>
-                <h3 id="{{ category }}" class="text-center">{{ category }}</h3>
-                <hr>
-                <article class="projectArticle">
-                    <div class="closedProjects projectContainer">
-                        {% for project in Projects %}
-                            {% if project.categories.contains(category) %}
-                                {{ include('project/_project_card.html.twig') }}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+                <a class="carousel-control-prev text-dark" href="#carouselExampleControls" role="button"
+                   data-slide="prev">
+                    <span class="" aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
+                    <span class="sr-only">{% trans %}Previous{% endtrans %}</span>
+                </a>
+                <a class="carousel-control-next text-dark" href="#carouselExampleControls" role="button"
+                   data-slide="next">
+                    <span class="" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+                    <span class="sr-only">{% trans %}Next{% endtrans %}</span>
+                </a>
+            </div>
+        </article>
+        <div class="row">
+            <div class="col-lg-8">
+                <article>
+                    {% for category in Category %}
+                        {% if category.projects|length > 0 %}
+                            <hr>
+                            <h3 id="{{ category }}" class="text-center">{{ category }}</h3>
+                            <hr>
+                            <article class="projectArticle">
+                                <div class="closedProjects projectContainer">
+                                    {% for project in Projects %}
+                                        {% if project.categories.contains(category) %}
+                                            {{ include('project/_project_card.html.twig') }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </article>
+                        {% endif %}
+                    {% endfor %}
                 </article>
-            {% endif %}
-        {% endfor %}
-    </article>
+            </div>
+            {{ include('category/_list_cat.html.twig') }}
+        </div>
     </div>
 {% endblock %}
