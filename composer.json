@@ -2,7 +2,6 @@
   "name": "aukrowfundind/project",
     "description": "All required packages for AuKrowFunding web site",
   "type": "project",
-  "license": "proprietary",
   "license": "MIT",
   "minimum-stability": "stable",
   "require": {
