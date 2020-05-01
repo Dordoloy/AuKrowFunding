@@ -74,7 +74,7 @@ LimitDate: 'Date limite'
 'Log in!': Connexion
 'You are logged in as': 'Vous êtes connecté en tant que'
 Logout: Déconnexion
-'Please sign in': 'S''il vous plait, veuillez vous connecter'
+'Please sign in': 'Connexion'
 'Sign in': Connexion
 'Edit Status': 'Modifier un status'
 'Status index': 'Index des status'
@@ -135,7 +135,7 @@ by: par
 'This project need': 'Ce projet a besoin'
 before: avant
 'Click to return on the top page': 'Retour haut de page'
-'Please sign up': 'Veuillez vous enregistrer'
+'Please sign up': 'Enregistrement'
 'Sign up': 'S''enregistrer'
 'Have already an account?': 'Vous avez déjà un compte ?'
 'Sign In': 'Se connecter'
