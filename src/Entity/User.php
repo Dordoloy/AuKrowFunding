@@ -5,10 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(columns={"username", "email"})})
  */
 class User implements UserInterface
 {
@@ -485,23 +487,6 @@ class User implements UserInterface
     }
 
     /**
-     * @param Comment $comment
-     * @return $this
-     */
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getUser() === $this) {
-                $comment->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function __toString()
@@ -509,27 +494,31 @@ class User implements UserInterface
         return $this->getUsername();
     }
 
+
     /**
      * Get all project how the current user participate
+     * @return ArrayCollection
      */
     public function getFinancedProject()
     {
-        $projects = [];
-        $donations = $this->getDonations();
-        foreach ($donations as $don) {
-            $projects += $don->getProjectParent();
-        }
-        return array_unique($projects);
+        return $this->Projects;
     }
 
     //endregion
 
 
+    /**
+     * @return string|null
+     */
     public function getPicture(): ?string
     {
         return $this->picture;
     }
 
+    /**
+     * @param string|null $picture
+     * @return $this
+     */
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
@@ -599,12 +588,20 @@ class User implements UserInterface
         return $projects;
     }
 
+    /**
+     * @param Project $projectsDisliked
+     * @return $this
+     */
     public function addProjectsDisliked(Project $projectsDisliked): self
     {
         $this->addUserProjectDislike((new UserProjectDislike())->setUser($this)->setProject($projectsDisliked));
         return $this;
     }
 
+    /**
+     * @param Project $projectsDisliked
+     * @return $this
+     */
     public function removeProjectsDisliked(Project $projectsDisliked): self
     {
         $this->removeUserProjectDislike((new UserProjectDislike())->setUser($this)->setProject($projectsDisliked));
@@ -620,20 +617,32 @@ class User implements UserInterface
         foreach ($this->getUserProjectSubscriptions() as $item) {
             $projects->add($item->getProject());
         }
-        return $projects;
+        return new ArrayCollection(array_unique($projects->toArray()));
     }
 
+    /**
+     * @param Project $project
+     * @return bool
+     */
     public function isProjectSubscribe(Project $project): bool
     {
         return $this->getProjectSubscribed()->contains($project);
     }
 
+    /**
+     * @param Project $projectSubscribed
+     * @return $this
+     */
     public function addProjectSubscribed(Project $projectSubscribed): self
     {
         $this->addUserProjectSubscription((new UserProjectSubscription())->setUser($this)->setProject($projectSubscribed));
         return $this;
     }
 
+    /**
+     * @param Project $projectSubscribed
+     * @return $this
+     */
     public function removeProjectSubscribed(Project $projectSubscribed): self
     {
         $this->removeUserProjectSubscription((new UserProjectSubscription())->setUser($this)->setProject($projectSubscribed));
@@ -648,6 +657,10 @@ class User implements UserInterface
         return $this->userProjectLikes;
     }
 
+    /**
+     * @param UserProjectLike $userProjectLike
+     * @return $this
+     */
     public function addUserProjectLike(UserProjectLike $userProjectLike): self
     {
         if (!$this->userProjectLikes->contains($userProjectLike)) {
@@ -658,6 +671,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param UserProjectLike $userProjectLike
+     * @return $this
+     */
     public function removeUserProjectLike(UserProjectLike $userProjectLike): self
     {
         if ($this->userProjectLikes->contains($userProjectLike)) {
@@ -679,6 +696,10 @@ class User implements UserInterface
         return $this->userProjectDislikes;
     }
 
+    /**
+     * @param UserProjectDislike $userProjectDislike
+     * @return $this
+     */
     public function addUserProjectDislike(UserProjectDislike $userProjectDislike): self
     {
         if (!$this->userProjectDislikes->contains($userProjectDislike)) {
@@ -689,6 +710,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param UserProjectDislike $userProjectDislike
+     * @return $this
+     */
     public function removeUserProjectDislike(UserProjectDislike $userProjectDislike): self
     {
         if ($this->userProjectDislikes->contains($userProjectDislike)) {
@@ -710,6 +735,10 @@ class User implements UserInterface
         return $this->userProjectSubscriptions;
     }
 
+    /**
+     * @param UserProjectSubscription $userProjectSubscription
+     * @return $this
+     */
     public function addUserProjectSubscription(UserProjectSubscription $userProjectSubscription): self
     {
         if (!$this->userProjectSubscriptions->contains($userProjectSubscription)) {
@@ -720,6 +749,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param UserProjectSubscription $userProjectSubscription
+     * @return $this
+     */
     public function removeUserProjectSubscription(UserProjectSubscription $userProjectSubscription): self
     {
         if ($this->userProjectSubscriptions->contains($userProjectSubscription)) {
@@ -733,4 +766,20 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }

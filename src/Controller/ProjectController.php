@@ -166,9 +166,7 @@ class ProjectController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -184,9 +182,7 @@ class ProjectController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -204,9 +200,7 @@ class ProjectController extends AbstractController
         $entityManager->persist($user);
         $entityManager->persist($project);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -223,9 +217,7 @@ class ProjectController extends AbstractController
         $entityManager->persist($user);
         $entityManager->persist($project);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -239,9 +231,7 @@ class ProjectController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($project);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 
     /**
@@ -255,8 +245,6 @@ class ProjectController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($project);
         $entityManager->flush();
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render('API/bin.html.twig');
     }
 }

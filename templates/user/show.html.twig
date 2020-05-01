@@ -29,7 +29,7 @@
                             {{ user.Email }}
                         </h6>
                         <h9>
-                            {{ user.getFinancedProject()|length }} {% trans %}financed projects{% endtrans %}
+                            {{ user.financedProject|length }} {% trans %}financed projects{% endtrans %}
                         </h9>
                     </div>
                 </div>
@@ -51,20 +51,16 @@
                                 </div>
                             </div>
                         {% else %}
-                            {% for project in user.getProjects() %}
-                                <div class="tab-pane fade show active" id="home">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <a href="{{ path('project_show', {'id': project.id}) }}" class="">{{ project.title }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
+                            <div class="container-fluid d-inline-flex">
+                                {% for project in user.projects %}
+                                    {{ include('project/_project_card.html.twig') }}
+                                {% endfor %}
+                            </div>
                         {% endif %}
                     </div>
                     <div class="tab-content profile-tab" id="myTabContent">
                         <h3>{% trans %}Followed projects{% endtrans %}</h3>
-                        {% if user.getProjectSubscribed()|length < 1 %}
+                        {% if user.projectSubscribed|length < 1 %}
                             <div class="tab-pane fade show active" id="home">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -73,15 +69,11 @@
                                 </div>
                             </div>
                         {% else %}
-                            {% for subscription in user.getProjectSubscribed() %}
-                                <div class="tab-pane fade show active" id="home">
-                                    <div class="row">
-                                        <div class="col-md-6">
-{#                                            <a href="{{ path('project_show', {'id': subscription.Project.id}) }}" class="">{{ subscription.Project.title }}</a>#}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
+                            <div class="container-fluid d-inline-flex">
+                                {% for project in user.projectSubscribed %}
+                                    {{ include('project/_project_card.html.twig') }}
+                                {% endfor %}
+                            </div>
                         {% endif %}
                     </div>
                 </div>

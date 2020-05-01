@@ -56,15 +56,19 @@ class UserController extends AbstractController
     /**
      * @Route("/show", name="user_show", methods={"GET"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @param UserRepository $userRepository
      * @return Response
      */
-    public function show(): Response
+    public function show(UserRepository $userRepository): Response
     {
         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->redirectToRoute("easyadmin");
         }
+
+        $users = $userRepository->findBy(['username' => $this->getUser()->getUsername()]);
+
         return $this->render('user/show.html.twig', [
-            'user' => $this->getUser()]);
+            'user' => $users[0]]);
     }
 
     /**

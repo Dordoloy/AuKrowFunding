@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserProjectLikeRepository")
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(columns={"user_id", "projectliked_id"})})
  */
 class UserProjectLike
 {
