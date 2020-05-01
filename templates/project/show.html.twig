@@ -120,10 +120,10 @@
 
 
     {% if project.user == app.user %}
-        <a href="{{ path('project_edit', {'id': project.id}) }}" id="editProject"
-           class="btn">{% trans %}edit{% endtrans %}</a>
+        <a href="{{ path('project_edit', {'id': project.id}) }}"
+           class="btn btn-primary">{% trans %}edit{% endtrans %}</a>
     {% endif %}
-    <a href="{{ path('project_index') }}" class="btn backToList"
+    <a href="{{ path('project_index') }}" class="btn btn-primary"
        style="margin-left: 0.5em">{% trans %}back to list{% endtrans %}</a>
 
 {% endblock %}
