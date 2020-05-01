@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Contact{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}Contact us{% endtrans %}</h1>
+
+    {{ include('home/_form.html.twig') }}
+
+    <a href="{{ path('project_index') }}" class="btn btn-primary btn-lg" style="position: relative; top: -3.4em; left: 6em">{% trans %}back{% endtrans %}</a>
+{% endblock %}

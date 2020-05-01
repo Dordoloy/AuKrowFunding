@@ -73,6 +73,7 @@ class ProjectController extends AbstractController
      * @param Project $project
      * @param Request $request
      * @return Response
+     * @throws \Exception
      */
     public function show(Project $project, Request $request): Response
     {
