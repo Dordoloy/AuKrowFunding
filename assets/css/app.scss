@@ -1,29 +1,22 @@
 /* import the necessary Bootstrap files */
 
-$primary: #d12e21;
+$primary: #71abd9;
+$yellow: #E7C181;
+
 @import '~bootstrap';
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
-.btn {
-    background-color: #d12e21 !important;
-    border-color: #d12e21 !important;
-}
-.btn-primary {
-    background-color: #d12e21 !important;
-    border-color: #d12e21 !important;
-}
-.btn-lg {
-    background-color: #d12e21 !important;
-    border-color: #d12e21 !important;
-}
-
 .nav-link {
-    border-bottom: rgba(0,0,0,0) 3px solid !important;
+    border-bottom: rgba(0, 0, 0, 0) 3px solid !important;
     transition: all ease 0.5s !important;
 }
 
+a {
+    color: #003e7b;
+}
+
 .nav-link:hover {
-    border-bottom: #d12e21 3px solid !important;
+    border-bottom: #003e7b 3px solid !important;
 }
 
 body {
@@ -31,7 +24,7 @@ body {
 }
 
 h1 {
-    color: #c92c20;
+    color: $primary;
 }
 
 i {
@@ -40,4 +33,21 @@ i {
 
 .socia {
     margin: 7px;
+}
+
+.btn-secondary {
+    color: mediumseagreen;
+}
+
+.btn-bg-secondary {
+    background-color: mediumseagreen;
+    color: black;
+}
+
+.btn {
+    margin: auto;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #002240;
 }

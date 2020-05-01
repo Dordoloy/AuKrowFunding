@@ -116,8 +116,9 @@
                                  aria-valuenow="{{ (project.goal - project.rest) / project.goal * 100 }}"
                                  aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p class="card-text">{{ project.goal - project.rest }} / {{ project.goal }} €</p>
-                        <p class="card-text">{% trans %}This project need{% endtrans %} {{ project.rest }}
+                        <p class="card-text">{{ (project.goal - project.rest)|number_format(2, ',', ' ') }}
+                            / {{ project.goal|number_format(2, ',', ' ') }} €</p>
+                        <p class="card-text">{% trans %}This project need{% endtrans %} {{ project.rest|number_format(2, ',', ' ') }}
                             € {% trans %}before{% endtrans %} {{ project.limitDate|format_datetime(locale=app.request.locale) }}</p>
                     </div>
                 </div>
@@ -135,6 +136,6 @@
            class="btn">{% trans %}edit{% endtrans %}</a>
     {% endif %}
     <a href="{{ path('project_index') }}" class="btn backToList"
-       style="margin-top: 0; margin-left: 0.5em">{% trans %}back to list{% endtrans %}</a>
+       style="margin-left: 0.5em">{% trans %}back to list{% endtrans %}</a>
 
 {% endblock %}

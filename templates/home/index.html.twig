@@ -3,43 +3,41 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-<!-- Header -->
-<header class="bg-primary py-5 mb-5">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-lg-12">
-                <h1 class="display-4 text-white mt-5 mb-2">{% trans %}Welcome on{% endtrans %} AuKrowFunding ! <img
-                            src="{{ asset('Resources/bebe_pingouin.svg') }}" style="width: 1em; margin-right: 20px" alt="icon"/><img
-                            src="{{ asset('Resources/ado_pingouin.svg') }}" style="width: 1em; margin-right: 20px" alt="icon"/><img
-                            src="{{ asset('Resources/Logo.svg') }}" style="width: 1em;" alt="icon"/></h1>
-                <p class="lead mb-5 text-white">{% trans %}Make your project grow to the end with our help{% endtrans %}</p>
+    <!-- Header -->
+    <header class="bg-primary py-5 mb-5">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-12">
+                    <h1 class="display-4 text-white mt-5 mb-2">{% trans %}Welcome on{% endtrans %} AuKrowFunding ! <img
+                                src="{{ asset('Resources/Logo.svg') }}" style="width: 1em;" alt="icon"/></h1>
+                    <p class="lead mb-5 text-white">{% trans %}Make your project grow to the end with our help{% endtrans %}</p>
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<!-- Page Content -->
-<div class="container">
-
-    <div class="row">
-        <div class="col-md-8 mb-5">
-            <h2>{% trans %}What We Do{% endtrans %}</h2>
-            <hr>
-            <p>{% trans %}The purpose of this website is to help you to finance and to grow your project.{% endtrans %}</p>
-            <p>{% trans %}To do so, we offer you the possibility of creating a funding pot which can be inflated thanks to generous internautes.{% endtrans %}</p>
-            <p>{% trans %}The special feature of our website can allow people to make a free donation !{% endtrans %}</p>
-            <p>{% trans %}Indeed, thanks to our partners, users can either donate the amount of their choice or watch a short video. In that case, our partner will reverse you a financial compensation. Moreover, our website propose to users, as well as project leaders, many ways to share projects on social networks.{% endtrans %}</p>
-            <a class="btn btn-lg" href="{{ path('project_new') }}">{% trans %}Create a project{% endtrans %}
-                &raquo;</a>
-        </div>
-        <div class="col-md-4 mb-5">
-            <h2>{% trans %}Contact Us{% endtrans %}</h2>
-            <hr>
-            <address>
-                <strong>{% trans %}AuKrowFunding{% endtrans %}</strong>
-                <br>2 rue arc-en-ciel
-                <br>74100 Annecy le Vieux, France
-            </address>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mb-5">
+                <h2>{% trans %}What We Do{% endtrans %}</h2>
+                <hr>
+                <p>{% trans %}The purpose of this website is to help you to finance and to grow your project.{% endtrans %}</p>
+                <p>{% trans %}To do so, we offer you the possibility of creating a funding pot which can be inflated thanks to generous internautes.{% endtrans %}</p>
+                <p>{% trans %}The special feature of our website can allow people to make a free donation !{% endtrans %}</p>
+                <p>{% trans %}Indeed, thanks to our partners, users can either donate the amount of their choice or watch a short video. In that case, our partner will reverse you a financial compensation. Moreover, our website propose to users, as well as project leaders, many ways to share projects on social networks.{% endtrans %}</p>
+                <a class="btn btn-primary btn-lg"
+                   href="{{ path('project_new') }}">{% trans %}Create a project{% endtrans %}
+                    &raquo;</a>
+            </div>
+            <div class="col-md-4 mb-5">
+                <h2>{% trans %}Contact Us{% endtrans %}</h2>
+                <hr>
+                <address>
+                    <strong>{% trans %}AuKrowFunding{% endtrans %}</strong>
+                    <br>2 rue arc-en-ciel
+                    <br>74100 Annecy le Vieux, France
+                </address>
             <address>
                 <abbr title="Phone">P:</abbr>
                 (123) 456-7890
@@ -94,4 +92,5 @@
             {% endif %}
         {% endfor %}
     </article>
+    </div>
 {% endblock %}

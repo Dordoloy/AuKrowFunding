@@ -3,23 +3,24 @@
 {% block title %}{% trans %}All project to support{% endtrans %}{% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-expand-md navbar-light bg-faded">
-        <div class="collapse navbar-collapse" id="navbarCategory">
-            <ul class="navbar-nav">
-                {% for category in Category %}
-                    <li class="nav-item ">
-                        <a class="nav-link navCategories"
-                           href="{{ path('category_show', {'id':category.id}) }}">{{ category.Name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarCategory" aria-controls="navbarCategory" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
+<nav class="navbar navbar-light bg-primary sticky-top mt-5 border-bottom">
+    <div class="collapse navbar-collapse" id="navbarCategory">
+        <ul class="navbar-nav w-100">
+            {% for category in Category %}
+                <li class="nav-item ">
+                    <a class="nav-link"
+                       href="{{ path('category_show', {'id':category.id}) }}">{{ category.Name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarCategory" aria-controls="navbarCategory" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
 <!-- Page Content -->
 <div class="container">
     <div class="row">
@@ -65,17 +66,19 @@
     <article class="projectArticle">
         <div class="d-inline-flex">
             <h2>{% trans %}Close to be financed{% endtrans %}</h2>
-            <a href="{{ path('donation_new') }}"
-               class="btn"
-               style="margin-left: 30px; background-color: #ffc107 !important; color: white; border-color: #ffc107 !important;">{% trans %}Donate{% endtrans %}</a>
+            <a href="{{ path('donation_new') }}" class="btn btn-bg-secondary ml-3">{% trans %}Donate{% endtrans %}</a>
         </div>
         <div class="closedProjects projectContainer">
             {% for project in CloseProjects %}
                 {{ include('project/_project_card.html.twig') }}
             {% endfor %}
         </div>
-        <h2>{% trans %}Most loved projects{% endtrans %}</h2>
+        <div class="d-inline-flex">
+            <h2>{% trans %}Most loved projects{% endtrans %}</h2>
+            <a href="{{ path('donation_new') }}" class="btn btn-bg-secondary ml-3">{% trans %}Donate{% endtrans %}</a>
+        </div>
         <div class="lovedProjects projectContainer">
+
             {% for project in LovedProjects %}
                 {{ include('project/_project_card.html.twig') }}
             {% endfor %}
