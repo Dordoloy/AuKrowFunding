@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(columns={"message", "user_id", "project_id"})})
  */
 class Comment
 {
